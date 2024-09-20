@@ -1,2 +1,4 @@
 Makefile linguist-vendored
+*.hpp linguist-language=C++
 *.inl linguist-language=C++
+*.cpp linguist-language=C++
