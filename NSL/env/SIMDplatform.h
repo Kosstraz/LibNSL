@@ -120,6 +120,7 @@ extern void	print_compatibleSIMD()
 	std::cout << "Neon" << std::endl;
 # endif
 #elif defined(RISCVPROC)
+	std::cout << "\n\tRISCV Processor: " << std::endl;
 # if defined(RISCVSIMD)
 	std::cout << "Riscv" << std::endl;
 # endif
