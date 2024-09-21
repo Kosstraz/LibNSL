@@ -40,7 +40,7 @@ DEPS = $(OBJS:%.obj=%.d)
 
 INCLUDES = -I ./env/srcs -I .
 
-CFLAGS = -Wall -Wextra -MMD -g3 #-Werror
+CFLAGS = -Wall -Wextra -MMD -g3 -march=native
 
 LIB = -lpthread
 
