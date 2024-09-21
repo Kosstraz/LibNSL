@@ -14,6 +14,8 @@
 #  define MALLOC_ATTR __attribute__((malloc))
 # endif
 
+# include "SIMDplatform.h"
+
 // !Two memory leaks in threading edge case (in the Thread class)
 // !If not, no memory leak currently detected
 
