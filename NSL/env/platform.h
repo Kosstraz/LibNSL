@@ -6,6 +6,14 @@
 #ifndef NSL_PLATFORM_H
 #define NSL_PLATFORM_H
 
+# ifndef FORCEINLINE
+#  define FORCEINLINE __attribute__((always_inline))
+# endif
+
+# ifndef MALLOC_ATTR
+#  define MALLOC_ATTR __attribute__((malloc))
+# endif
+
 # include <assert.h>
 
 typedef char		bool8;
