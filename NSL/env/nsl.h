@@ -6,14 +6,6 @@
 #ifndef NEW_STANDARD_LIBRARY_H
 #define NEW_STANDARD_LIBRARY_H
 
-# ifndef FORCEINLINE
-#  define FORCEINLINE __attribute__((always_inline))
-# endif
-
-# ifndef MALLOC_ATTR
-#  define MALLOC_ATTR __attribute__((malloc))
-# endif
-
 # include "platform.h"
 # include "SIMDplatform.h"
 
