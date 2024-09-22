@@ -11,16 +11,18 @@
 # endif
 
 # include "Memory.hpp"
+# include "../SIMDplatform.h"
+# include "../platform.h"
 # include <string> // just for the conversion between String AND std::string
 
 class String final
 {
 public:
-	constexpr	String();
-	inline		String(const std::string& str_cpy);
-	inline		String(const String& str_cpy);
-	constexpr	String(const char* data);
-	constexpr	~String();
+	String();
+	String(const std::string& str_cpy);
+	String(const String& str_cpy);
+	String(const char* data);
+	~String();
 
 	inline bool	Contains(const char* data)	const;
 	inline bool	Contains(const String& str)	const;
@@ -53,12 +55,24 @@ public:
 	// Equivalent to .Append()
 	inline void	Join(const String& str)		noexcept;
 
-	// Equivalent to .Size(), return -1 if the string is null
+	// Return -1 if the string is null
+	// Calcul the length for each call (use Size() instead)
 	[[nodiscard]]
-	constexpr int	Len() const noexcept;
-	// Equivalent to .Len(), return -1 if the string is null
+	inline uint64	Len() const noexcept;
+	// Return -1 if the string is null
+	// Like Len(), but Size() doesn't recalculate the length if it has already been calculated
 	[[nodiscard]]
-	constexpr int	Size() const noexcept;
+	inline uint64	Size() noexcept;
+
+	// Return -1 if the string is null
+	// Calcul the length for each call (use Size() instead)
+	[[nodiscard]]
+	static inline uint64	Len(const String& str) noexcept;
+	// Return -1 if the string is null
+	// Like Len(), but Size() doesn't recalculate the length if it has already been calculated
+	[[nodiscard]]
+	static inline uint64	Size(String& str) noexcept;
+
 
 	// (static) Return a new allocated string equal to the string.Data() in parameter
 	// !(ne pas oublier de 'delete[]')!
@@ -72,42 +86,49 @@ public:
 	inline void				Swap(String&)		  noexcept;
 	inline void				Shuffle()			  noexcept;
 	inline void				Erase(int idex)		  noexcept;
-	constexpr bool			Empty()			const;
+	inline bool				Empty()			const;
 	constexpr const char*	Data()			const noexcept;
 	constexpr const char&	At(int index)	const noexcept;
-	constexpr const char&	First()			const noexcept;
-	constexpr const char&	Last()			const noexcept;
+	inline const char&		First()			const noexcept;
+	inline const char&		Last()			const noexcept;
 	// Equivalent to .Destroy()
 	constexpr void			Clear()				  noexcept;
 	// Equivalent to .Clear()
 	constexpr void			Destroy()		 	  noexcept;
 
 private:
-	inline void	__join__(const String& str)		noexcept;
-	inline void	__replace__(const String& str)	noexcept;
+	constexpr void	_setSize_(uint64 newSize)		noexcept;
+
+	void	__join__(const String& str)		noexcept;
+	void	__replace__(const String& str)	noexcept;
+	uint64	__length__()			  const noexcept;
+
+	static uint64	__length__(const String& str)	noexcept;
 
 public:
-	constexpr const char&	operator[](int index) const noexcept;
-	constexpr				operator const char*() const noexcept;
+	constexpr const char&	operator[](int index)	const noexcept;
+	constexpr				operator const char*()	const noexcept;
 
-	constexpr bool			operator<(const String& str) const noexcept;
-	constexpr bool			operator>(const String& str) const noexcept;
-	constexpr bool			operator<=(const String& str) const noexcept;
-	constexpr bool			operator>=(const String& str) const noexcept;
-	constexpr bool			operator==(const String& str) const noexcept;
-	constexpr int			operator<=>(const String& str) const noexcept;
-	constexpr bool			operator!=(const String& str) const noexcept;
+	constexpr bool			operator<(const String& str)	const noexcept;
+	constexpr bool			operator>(const String& str)	const noexcept;
+	constexpr bool			operator<=(const String& str)	const noexcept;
+	constexpr bool			operator>=(const String& str)	const noexcept;
+	constexpr bool			operator==(const String& str)	const noexcept;
+	constexpr int			operator<=>(const String& str)	const noexcept;
+	constexpr bool			operator!=(const String& str)	const noexcept;
 
-	inline String	operator+(const String& str) const noexcept;
-	inline String	operator*(const unsigned int& count) const noexcept;
+	inline String	operator+(const String& str)			const noexcept;
+	inline String	operator*(const unsigned int& count)	const noexcept;
 
-	inline String&	operator=(const String& str) noexcept;
-	inline String&	operator+=(const String& str) noexcept;
-	inline String&	operator*=(const unsigned int& count) noexcept;
+	inline String&	operator=(const String& str)			noexcept;
+	inline String&	operator+=(const String& str)			noexcept;
+	inline String&	operator*=(const unsigned int& count)	noexcept;
 
 private:
 	char*	data;
+	uint64	size;
 	bool	allocated;
+	bool	size_calculated;
 };
 
 # include "template/String.inl"

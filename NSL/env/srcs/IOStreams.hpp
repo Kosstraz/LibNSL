@@ -70,7 +70,7 @@ public:
 		if (begin.keep || begin.save)
 			begin.text.Join(c);
 		if (!begin.keep)
-			write(STDOUT_FILENO, c, strlen(c));
+			write(STDOUT_FILENO, c, String::Len(c));
 		return (begin);
 	}
 

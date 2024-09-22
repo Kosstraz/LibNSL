@@ -1,18 +1,23 @@
 #include "env/nsl.h"
-#include <iostream>
 
-float	ThreadTesting(String parameter /* can put infinite parameters */)
+int	main()
+{
+	
+	return (0);
+}
+
+/*float	ThreadTesting(String parameter /* can put infinite parameters )
 {
 	bool	check;
 
-	/* ... */
+	/* ... 
 	parameter.Join("EZ");
 	std::cout << "parameter: " << parameter << std::endl;
 	Thread::Send("randomized", parameter);
-	/* ... */
+	/* ... 
 	check = Thread::Receive<bool>("goodSendingOK?");
 	std::cout << "check: " << check << std::endl;
-	/* ... */
+	/* ... 
 	Thread::Return(42.42f);
 	return (42.42f);
 }
@@ -29,4 +34,4 @@ int	main(void)
 	float retValue = myThread.Get<float>();
 	std::cout << "retValue: " << retValue << std::endl;
 	return (0);
-}
+}*/

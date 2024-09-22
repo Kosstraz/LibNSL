@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2024 Kosstraz/Bama
+ * Licensed under the MIT License.
+*/
+
 #ifndef NSL_SIMDPLATFORM_H
 #define NSL_SIMDPLATFORM_H
 
@@ -7,10 +12,10 @@
 #   define MMX
 #  endif				// endMMX
 
-#  if defined(__SSE_4_2__)	// ifSSE
+#  if defined(__SSE4_2__)	// ifSSE
 #   define SSE4_2
 #  endif
-#  if defined(__SSE_4_1__)
+#  if defined(__SSE4_1__)
 #   define SSE4_1
 #  endif
 #  if defined(__SSSE3__)
@@ -63,6 +68,18 @@
 #   define RISCVSIMD
 #  endif
 # endif																	// endAMD/Intel/ARM
+
+# include <mmintrin.h>	// MMX
+# include <xmmintrin.h>	// SSE
+# include <emmintrin.h>	// SSE2
+# include <pmmintrin.h>	// SSE3
+# include <tmmintrin.h>	// SSSE3
+# include <smmintrin.h>	// SSE4.1
+# include <nmmintrin.h>	// SSE4.2
+# include <immintrin.h>	// AVX + AVX2 + FMA
+
+typedef __m128i	int128;
+typedef __m256i	int256;
 
 extern void	print_compatibleSIMD();
 

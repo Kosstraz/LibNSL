@@ -14,6 +14,7 @@
 #  define MALLOC_ATTR __attribute__((malloc))
 # endif
 
+# include "platform.h"
 # include "SIMDplatform.h"
 
 // !Two memory leaks in threading edge case (in the Thread class)

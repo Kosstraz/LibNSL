@@ -41,10 +41,12 @@ void	Streams::__clear__(Streams& s) noexcept
 
 void	Streams::__flush__(Streams& s) noexcept
 {
+	uint64 __Wno;
 	if (!s.GetStockedText().Empty())
-		write(STDOUT_FILENO, s.GetStockedText().Data(), s.GetStockedText().Len());
+		__Wno = write(STDOUT_FILENO, s.GetStockedText().Data(), s.GetStockedText().Len());
 	if (s.save)
 		s.ClearStockedText();
+	(void)__Wno;
 }
 
 thread_local Streams		Stream	= Streams();

@@ -9,27 +9,6 @@
 # include "../String.hpp"
 # include <cstring>
 
-constexpr String::String() : data(nullptr), allocated(false)
-{
-}
-
-String::String(const std::string& str) : data(String::CString(str.data())), allocated(true)
-{
-}
-
-String::String(const String& str) : data(String::CString(str)), allocated(true)
-{
-}
-
-constexpr String::String(const char* data) : data(const_cast<char*>(data)), allocated(false)
-{
-}
-
-constexpr String::~String()
-{
-	this->Destroy();
-}
-
 bool	String::Contains(const char* data) const
 {
 	return (strstr(this->data, data) ? true : false);
@@ -114,18 +93,6 @@ void	String::Overwrite(const String& str) noexcept
 {
 	this->__replace__(str.data);
 }
-
-void	String::__replace__(const String& str) noexcept
-{
-	unsigned int	newSize = strlen(str.data);
-
-	if (this->allocated && this->data)
-		delete[](this->data);
-	this->data = new char[newSize + 1U];
-	this->allocated = true;
-	strlcpy(this->data, str.data, newSize + 1U);
-	this->data[newSize] = '\0';
-}
 #pragma endregion
 
 
@@ -153,25 +120,6 @@ void	String::Append(const String& str) noexcept
 {
 	this->__join__(str);
 }
-
-void	String::__join__(const String& str) noexcept
-{
-	unsigned int	thisLen = strlen(this->data);
-	unsigned int	dataLen = strlen(str.data);
-	unsigned int	totaLen = thisLen + dataLen + 2U;
-	char*			ref = this->data;
-
-	this->data = new char[totaLen];
-	if (thisLen > 0)
-	{
-		strlcpy(this->data, ref, thisLen + 1);
-		if (this->allocated)
-			delete[](ref);
-	}
-	strlcpy(&this->data[thisLen], str.data, dataLen + 1);
-	this->data[totaLen - 1U] = '\0';
-	this->allocated = true;
-}
 #pragma endregion
 
 
@@ -180,17 +128,44 @@ void	String::__join__(const String& str) noexcept
 
 
 #pragma region Strlen
-constexpr int	String::Len() const noexcept
+uint64	String::Len() const noexcept
 {
-	if (this->data)
-		return (strlen(this->data));
+	if (this->size_calculated)
+		return (this->size);
+	else if (this->data)
+		return (this->__length__());
 	return (-1);
 }
 
-constexpr int	String::Size() const noexcept
+uint64	String::Size() noexcept
 {
-	if (this->data)
-		return (strlen(this->data));
+	if (this->size_calculated)
+		return (this->size);
+	else if (this->data)
+	{
+		this->_setSize_(this->__length__());
+		return (this->size);
+	}
+	return (-1);
+}
+
+uint64	String::Len(const String& str) noexcept
+{
+	if (str.size_calculated)
+		return (str.size);
+	else if (str.data)
+	{
+		return (__length__(str));
+	}
+	return (-1);
+}
+
+uint64	String::Size(String& str) noexcept
+{
+	if (str.size_calculated)
+		return (str.size);
+	else if (str.data)
+		return (__length__(str));
 	return (-1);
 }
 #pragma endregion
@@ -227,11 +202,11 @@ char*	String::CString() noexcept
 
 void	String::Erase(int index) noexcept
 {
-	int			totalSize = strlen(this->data);
+	int			totalSize = this->Size();
 	unsigned	secondPart= index + 1U;
 	char*		ref = this->data;
 
-	if (totalSize == -1)
+	if (index >= totalSize || totalSize == -1)
 		return ;
 	this->data = new char[totalSize];
 	strlcpy(this->data, ref, secondPart);
@@ -240,11 +215,12 @@ void	String::Erase(int index) noexcept
 	if (this->allocated)
 		delete[](ref);
 	this->allocated = true;
+	this->_setSize_(totalSize - 1ULL);
 }
 
-constexpr bool			String::Empty() const
+bool			String::Empty() const
 {
-	return (!strlen(this->data));
+	return (!this->data || !this->data[0]);
 }
 
 constexpr const char*	String::Data() const noexcept
@@ -257,12 +233,12 @@ constexpr const char&	String::At(int index) const noexcept
 	return (this->data[index]);
 }
 
-constexpr const char&	String::First() const noexcept
+const char&	String::First() const noexcept
 {
 	return (*this->data);
 }
 
-constexpr const char&	String::Last() const noexcept
+const char&	String::Last() const noexcept
 {
 	return (this->data[this->Len() - 1]);
 }
@@ -273,6 +249,7 @@ constexpr void	String::Clear() noexcept
 		delete[](this->data);
 	this->allocated = false;
 	this->data = nullptr;
+	this->_setSize_(0ULL);
 }
 
 constexpr void	String::Destroy() noexcept
@@ -281,7 +258,15 @@ constexpr void	String::Destroy() noexcept
 		delete[](this->data);
 	this->allocated = false;
 	this->data = nullptr;
+	this->_setSize_(0ULL);
 }
+
+constexpr void	String::_setSize_(uint64 newSize) noexcept
+{
+	this->size = newSize;
+	this->size_calculated = true;
+}
+
 
 #pragma region OthersOP
 constexpr const char&	String::operator[](int index) const noexcept
@@ -384,6 +369,8 @@ String&		String::operator=(const String& str) noexcept
 			delete[](this->data);
 		this->data = String::CString(str);
 		this->allocated = true;
+		this->size = str.size;
+		this->size_calculated = str.size_calculated;
 	}
 	return (*this);
 }

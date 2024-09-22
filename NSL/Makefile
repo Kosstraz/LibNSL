@@ -22,7 +22,9 @@ NAME = a.out
 
 CXX = @c++ -std=c++20
 
-SRCS =	./env/srcs/private/IOStream.cpp			\
+SRCS =	./env/SIMDplatform.cpp					\
+		./env/srcs/private/String.cpp			\
+		./env/srcs/private/IOStream.cpp			\
 		./env/srcs/private/Pool.cpp				\
 		./env/srcs/private/Mutex.cpp			\
 		./env/srcs/private/Thread.cpp			\
@@ -40,7 +42,7 @@ DEPS = $(OBJS:%.obj=%.d)
 
 INCLUDES = -I ./env/srcs -I .
 
-CFLAGS = -Wall -Wextra -MMD -g3 -march=native
+CFLAGS = -Wall -Wextra -MMD -g3 -O3 -march=native -Wno-comment
 
 LIB = -lpthread
 
