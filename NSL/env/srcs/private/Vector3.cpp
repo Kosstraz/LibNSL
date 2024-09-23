@@ -2,7 +2,7 @@
 
 Vector3::Vector3() : x(0.0), y(0.0), z(0.0)
 {
-	//this->v3simd = _mm256_setzero_pd();
+	this->v3simd = _mm256_setzero_pd();
 }
 Vector3::Vector3(const Vector3& other) : x(other.x), y(other.y), z(other.z)
 {
@@ -41,8 +41,6 @@ Vector3	Vector3::SIMDCross(const Vector3& other) const noexcept
 	thisPermuted = _mm256_permute4x64_pd(this->v3simd, _MM_SHUFFLE(3, 1, 0, 2));
 	otherPermuted = _mm256_permute4x64_pd(other.v3simd, _MM_SHUFFLE(3, 0, 2, 1));
 	result = _mm256_sub_pd(mul1, _mm256_mul_pd(thisPermuted, otherPermuted));
-	alignas(64) double	ez[4];
-	_mm256_store_pd(ez, result);
 	ret.x = _mm256_cvtsd_f64(_mm256_permute4x64_pd(result, _MM_SHUFFLE(0, 0, 0, 0)));
 	ret.y = _mm256_cvtsd_f64(_mm256_permute4x64_pd(result, _MM_SHUFFLE(1, 1, 1, 1)));
 	ret.z = _mm256_cvtsd_f64(_mm256_permute4x64_pd(result, _MM_SHUFFLE(2, 2, 2, 2)));
