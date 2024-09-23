@@ -57,6 +57,10 @@
 #   define FMA
 #  endif				// endFMA
 
+#  if defined(__INTEL_COMPILER_USE_SVML__)
+#   define SVML
+#  endif
+
 # elif defined(__arm__) || defined(__ARM__) || defined(__aarch64__)
 #  define ARM
 #  if defined(__ARM_NEON__)
@@ -80,6 +84,15 @@
 
 typedef __m128i	int128;
 typedef __m256i	int256;
+typedef __m512i	int512;
+
+typedef __m128	float128;
+typedef __m256	float256;
+typedef __m512	float512;
+
+typedef __m128d	double128;
+typedef __m256d	double256;
+typedef __m512d	double512;
 
 extern void	print_compatibleSIMD();
 

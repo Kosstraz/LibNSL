@@ -72,4 +72,7 @@
 // Todo: .Insert()  --> char & String
 # include "srcs/String.hpp"
 
+// ?Include Vector3 & Vector4 (for mathematical usage)
+# include "srcs/MathVectors.h"
+
 #endif

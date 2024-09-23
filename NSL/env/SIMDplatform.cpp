@@ -50,6 +50,9 @@ void	print_compatibleSIMD()
 # if defined(FMA)
 	std::cout << "FMA" << std::endl;
 # endif
+# if defined(SVML)
+	std::cout << "SVML" << std::endl;
+# endif
 #elif defined(ARM)
 	std::cout << "\n\tARM Processor: " << std::endl;
 # if defined(NEON)
