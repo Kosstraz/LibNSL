@@ -36,7 +36,6 @@ public:
 		this->x = o.x;
 		this->y = o.y;
 		this->z = o.z;
-		this->w = o.w;
 #endif
 		return (*this);
 	}
