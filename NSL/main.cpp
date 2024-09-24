@@ -4,7 +4,7 @@ int	main()
 {
 }
 
-	// THREADING TESTING
+	// THREADING TESTS
 
 /*float	ThreadTesting(String parameter /* can put infinite parameters )
 {
