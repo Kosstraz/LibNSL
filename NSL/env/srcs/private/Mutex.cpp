@@ -15,17 +15,20 @@ Mutex::~Mutex() noexcept
 	pthread_mutex_destroy(&this->mutex);
 }
 
-void	Mutex::Destroy()
+void
+Mutex::Destroy()
 {
 	pthread_mutex_destroy(&this->mutex);
 }
 
-int		Mutex::TryLock()
+int	
+Mutex::TryLock()
 {
 	return (pthread_mutex_trylock(&this->mutex));
 }
 
-void	Mutex::TimedLock(unsigned int seconds) noexcept
+void
+Mutex::TimedLock(unsigned int seconds) noexcept
 {
 	struct timespec	ts;
 	clock_gettime(CLOCK_REALTIME, &ts);
@@ -34,7 +37,8 @@ void	Mutex::TimedLock(unsigned int seconds) noexcept
 	pthread_mutex_timedlock(&this->mutex, &ts);
 }
 
-void	Mutex::TimedLock(unsigned long mseconds) noexcept
+void
+Mutex::TimedLock(unsigned long mseconds) noexcept
 {
 	struct timespec	ts;
 	clock_gettime(CLOCK_REALTIME, &ts);
@@ -43,7 +47,8 @@ void	Mutex::TimedLock(unsigned long mseconds) noexcept
 	pthread_mutex_timedlock(&this->mutex, &ts);
 }
 
-void	Mutex::TimedLock(unsigned long long nseconds) noexcept
+void
+Mutex::TimedLock(unsigned long long nseconds) noexcept
 {
 	struct timespec	ts;
 	clock_gettime(CLOCK_REALTIME, &ts);
@@ -56,12 +61,14 @@ void	Mutex::TimedLock(unsigned long long nseconds) noexcept
 	pthread_mutex_timedlock(&this->mutex, &ts);
 }
 
-void	Mutex::Lock() noexcept
+void
+Mutex::Lock() noexcept
 {
 	pthread_mutex_lock(&this->mutex);
 }
 
-void	Mutex::Unlock() noexcept
+void
+Mutex::Unlock() noexcept
 {
 	pthread_mutex_unlock(&this->mutex);
 }

@@ -16,30 +16,35 @@ Streams::Streams(const Streams& s) noexcept : text(s.text), keep(s.keep), save(s
 {
 }
 
-void	Streams::__keep__(Streams& s) noexcept
+void
+Streams::__keep__(Streams& s) noexcept
 {
 	s.keep = true;
 	s.save = false;
 }
 
-void	Streams::__save__(Streams& s) noexcept
+void
+Streams::__save__(Streams& s) noexcept
 {
 	s.keep = false;
 	s.save = true;
 }
 
-void	Streams::__reset__(Streams& s) noexcept
+void
+Streams::__reset__(Streams& s) noexcept
 {
 	s.keep = false;
 	s.save = false;
 }
 
-void	Streams::__clear__(Streams& s) noexcept
+void
+Streams::__clear__(Streams& s) noexcept
 {
 	s.ClearStockedText();
 }
 
-void	Streams::__flush__(Streams& s) noexcept
+void
+Streams::__flush__(Streams& s) noexcept
 {
 	uint64 __Wno;
 	if (!s.GetStockedText().Empty())

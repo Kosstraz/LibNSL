@@ -29,7 +29,10 @@ SRCS =	./env/SIMDplatform.cpp					\
 		./env/srcs/private/Mutex.cpp			\
 		./env/srcs/private/Thread.cpp			\
 		./env/srcs/private/MultiThreading.cpp	\
-		./env/srcs/private/Vector3.cpp			\
+		./env/srcs/private/Vector3d.cpp			\
+		./env/srcs/private/Vector3d_op.cpp		\
+		./env/srcs/private/Vector3f.cpp			\
+		./env/srcs/private/Vector3f_op.cpp		\
 		\
 		./main.cpp
 
@@ -43,7 +46,7 @@ DEPS = $(OBJS:%.obj=%.d)
 
 INCLUDES = -I ./env/srcs -I .
 
-CFLAGS = -Wall -Wextra -MMD -g3 -O3 -march=native -Wno-comment
+CFLAGS = -Wall -Wextra -Winline -Wno-comment -MMD -O3 -march=native #-g3
 
 LIB = -lpthread
 

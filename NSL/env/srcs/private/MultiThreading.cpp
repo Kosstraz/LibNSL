@@ -7,7 +7,8 @@
 
 thread_local std::map<String, Thread>	MultiThreading::threads = std::map<String, Thread>();
 
-void	MultiThreading::WaitOne(const String& threadToWait) noexcept
+void
+MultiThreading::WaitOne(const String& threadToWait) noexcept
 {
 	MultiThreading::threads.at(threadToWait).Wait();
 	MultiThreading::threads.erase(threadToWait);

@@ -69,7 +69,8 @@ SmartPtr<T>::~SmartPtr() noexcept
 }
 
 template <typename T>
-void	SmartPtr<T>::destroy() noexcept
+void
+SmartPtr<T>::destroy() noexcept
 {
 	if (this->count != nullptr && *this->count > 0)
 	{
@@ -86,7 +87,8 @@ void	SmartPtr<T>::destroy() noexcept
 }
 
 template <typename T>
-void	SmartPtr<T>::destroyForce()
+void
+SmartPtr<T>::destroyForce()
 {
 	delete this->_ptr;
 	delete this->count;
@@ -96,31 +98,36 @@ void	SmartPtr<T>::destroyForce()
 }
 
 template <typename T>
-T*	SmartPtr<T>::ptr() noexcept
+T*
+SmartPtr<T>::ptr() noexcept
 {
 	return (this->_ptr);
 }
 
 template <typename T>
-T*	SmartPtr<T>::get() noexcept
+T*
+SmartPtr<T>::get() noexcept
 {
 	return (this->_ptr);
 }
 
 template <typename T>
-T	SmartPtr<T>::val() const noexcept
+T
+SmartPtr<T>::val() const noexcept
 {
 	return (*(this->_ptr));
 }
 
 template <typename T>
-unsigned short	SmartPtr<T>::HowMany()	const noexcept
+unsigned short
+SmartPtr<T>::HowMany()	const noexcept
 {
 	return (*(this->count));
 }
 
 template <typename T>
-unsigned short*	SmartPtr<T>::CounterPtr()	const noexcept
+unsigned short*
+SmartPtr<T>::CounterPtr()	const noexcept
 {
 	return (this->count);
 }
@@ -130,7 +137,8 @@ unsigned short*	SmartPtr<T>::CounterPtr()	const noexcept
 /*///////////*/
 
 template <typename T>
-void	SmartPtr<T>::matchWithNew(T* newPtr, maxsptr_t* newCount)
+void
+SmartPtr<T>::matchWithNew(T* newPtr, maxsptr_t* newCount)
 {
 	if (this->_ptr != newPtr)
 	{
@@ -149,7 +157,8 @@ void	SmartPtr<T>::matchWithNew(T* newPtr, maxsptr_t* newCount)
 /*////////////*/
 
 template <typename T>
-SmartPtr<T>&	SmartPtr<T>::operator=(SmartPtr<T>&& other) noexcept
+SmartPtr<T>&
+SmartPtr<T>::operator=(SmartPtr<T>&& other) noexcept
 {
 	if (this != &other && this->_ptr != other.ptr())
 	{
@@ -161,7 +170,8 @@ SmartPtr<T>&	SmartPtr<T>::operator=(SmartPtr<T>&& other) noexcept
 }
 
 template <typename T>
-SmartPtr<T>&	SmartPtr<T>::operator=(const SmartPtr<T>& other) noexcept
+SmartPtr<T>&
+SmartPtr<T>::operator=(const SmartPtr<T>& other) noexcept
 {
 	if (this != &other && this->_ptr != other.ptr())
 	{
@@ -173,13 +183,15 @@ SmartPtr<T>&	SmartPtr<T>::operator=(const SmartPtr<T>& other) noexcept
 }
 
 template <typename T>
-T*	SmartPtr<T>::operator->() const
+T*
+SmartPtr<T>::operator->() const
 {
 	return (this->_ptr);
 }
 
 template <typename T>
-const T&	SmartPtr<T>::operator*() const
+const T&
+SmartPtr<T>::operator*() const
 {
 	return (*(this->_ptr));
 }

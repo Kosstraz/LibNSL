@@ -14,19 +14,22 @@
 	/*******************/
 
 template <typename T>
-constexpr T*	Allocator<T>::construct(unsigned int&& n)
+constexpr T*
+Allocator<T>::construct(unsigned int&& n)
 {
 	return (new T[n]);
 }
 
 template <typename T>
-constexpr T*	Allocator<T>::construct(const unsigned int& n)
+constexpr T*
+Allocator<T>::construct(const unsigned int& n)
 {
 	return (new T[n]);
 }
 
 template <typename T>
-constexpr void	Allocator<T>::deconstruct(T* ptr)
+constexpr void
+Allocator<T>::deconstruct(T* ptr)
 {
 	delete[] ptr;
 }
@@ -34,7 +37,8 @@ constexpr void	Allocator<T>::deconstruct(T* ptr)
 
 # if __cpp_aligned_new
 template <typename T>
-constexpr T*	Allocator<T>::construct_align(unsigned int&& n)
+constexpr T*
+Allocator<T>::construct_align(unsigned int&& n)
 {
 	T*	ret;
 
@@ -48,7 +52,8 @@ constexpr T*	Allocator<T>::construct_align(unsigned int&& n)
 }
 
 template <typename T>
-constexpr T*	Allocator<T>::construct_align(const unsigned int& n)
+constexpr T*
+Allocator<T>::construct_align(const unsigned int& n)
 {
 	T*	ret;
 
@@ -62,7 +67,8 @@ constexpr T*	Allocator<T>::construct_align(const unsigned int& n)
 }
 
 template <typename T>
-constexpr void	Allocator<T>::deconstruct_align(T* __restrict ptr, const unsigned int& tabSize)
+constexpr void
+Allocator<T>::deconstruct_align(T* __restrict ptr, const unsigned int& tabSize)
 {
 	for (int i = 0 ; i < tabSize ; i++)
 		ptr[i].~T();
@@ -70,7 +76,8 @@ constexpr void	Allocator<T>::deconstruct_align(T* __restrict ptr, const unsigned
 }
 
 template <typename T>
-constexpr void	Allocator<T>::deconstruct_align(T* __restrict ptr, unsigned int&& tabSize)
+constexpr void
+Allocator<T>::deconstruct_align(T* __restrict ptr, unsigned int&& tabSize)
 {
 	for (int i = 0 ; i < tabSize ; i++)
 		ptr[i].~T();
@@ -83,19 +90,22 @@ constexpr void	Allocator<T>::deconstruct_align(T* __restrict ptr, unsigned int&&
 	/*****************/
 
 template <typename T>
-constexpr T*	Allocator<T>::ALLOC_(unsigned int&& n)
+constexpr T*
+Allocator<T>::ALLOC_(unsigned int&& n)
 {
 	return (static_cast<T*>(::operator new[](static_cast<__uint128_t>(sizeof(T)) * static_cast<__uint128_t>(n))));
 }
 
 template <typename T>
-constexpr T*	Allocator<T>::ALLOC_(const unsigned int& n)
+constexpr T*
+Allocator<T>::ALLOC_(const unsigned int& n)
 {
 	return (static_cast<T*>(::operator new[](static_cast<__uint128_t>(sizeof(T)) * static_cast<__uint128_t>(n))));
 }
 
 template <typename T>
-constexpr void	Allocator<T>::DEALLOC_(T* ptr)
+constexpr void
+Allocator<T>::DEALLOC_(T* ptr)
 {
 	::operator delete[](ptr);
 }
@@ -103,7 +113,8 @@ constexpr void	Allocator<T>::DEALLOC_(T* ptr)
 
 # if __cpp_aligned_new
 template <typename T>
-constexpr T*	Allocator<T>::ALLOC_(unsigned int&& n, const unsigned long& align)
+constexpr T*
+Allocator<T>::ALLOC_(unsigned int&& n, const unsigned long& align)
 {
 	unsigned long	alignSize 	= align;
 	if (alignSize >= __BIGGEST_ALIGNMENT__)
@@ -115,7 +126,8 @@ constexpr T*	Allocator<T>::ALLOC_(unsigned int&& n, const unsigned long& align)
 }
 
 template <typename T>
-constexpr T*	Allocator<T>::ALLOC_(const unsigned int& n, const unsigned long& align)
+constexpr T*
+Allocator<T>::ALLOC_(const unsigned int& n, const unsigned long& align)
 {
 	unsigned long	alignSize 	= align;
 	if (alignSize >=  __BIGGEST_ALIGNMENT__)
@@ -127,7 +139,8 @@ constexpr T*	Allocator<T>::ALLOC_(const unsigned int& n, const unsigned long& al
 }
 
 template <typename T>
-constexpr void	Allocator<T>::DEALLOC_(T* ptr, const unsigned long&& align)
+constexpr void
+Allocator<T>::DEALLOC_(T* ptr, const unsigned long&& align)
 {
 	unsigned long	alignSize 	= align;
 	if (alignSize >=  __BIGGEST_ALIGNMENT__)
@@ -138,7 +151,8 @@ constexpr void	Allocator<T>::DEALLOC_(T* ptr, const unsigned long&& align)
 }
 
 template <typename T>
-constexpr void	Allocator<T>::DEALLOC_(T* ptr, const unsigned long& align)
+constexpr void
+Allocator<T>::DEALLOC_(T* ptr, const unsigned long& align)
 {
 	unsigned long	alignSize 	= align;
 	if (alignSize >=  __BIGGEST_ALIGNMENT__)
@@ -156,19 +170,22 @@ constexpr void	Allocator<T>::DEALLOC_(T* ptr, const unsigned long& align)
 
 
 template <typename T>
-constexpr T*	Allocator<T>::ALLOC_HOT(unsigned int&& n)
+constexpr T*
+Allocator<T>::ALLOC_HOT(unsigned int&& n)
 {
 	return (static_cast<T*>(::operator new[](static_cast<__uint128_t>(sizeof(T)) * static_cast<__uint128_t>(n))));
 }
 
 template <typename T>
-constexpr T*	Allocator<T>::ALLOC_HOT(const unsigned int& n)
+constexpr T*
+Allocator<T>::ALLOC_HOT(const unsigned int& n)
 {
 	return (static_cast<T*>(::operator new[](static_cast<__uint128_t>(sizeof(T)) * static_cast<__uint128_t>(n))));
 }
 
 template <typename T>
-constexpr void	Allocator<T>::DEALLOC_HOT(T* ptr)
+constexpr void
+Allocator<T>::DEALLOC_HOT(T* ptr)
 {
 	::operator delete(ptr);
 }
@@ -176,7 +193,8 @@ constexpr void	Allocator<T>::DEALLOC_HOT(T* ptr)
 
 # if __cpp_aligned_new
 template <typename T>
-constexpr T*	Allocator<T>::ALLOC_HOT(unsigned int&& n, const unsigned long& align)
+constexpr T*
+Allocator<T>::ALLOC_HOT(unsigned int&& n, const unsigned long& align)
 {
 	const long maxAlign			= sysconf(_SC_PAGE_SIZE);
 	unsigned long	alignSize 	= align;
@@ -189,7 +207,8 @@ constexpr T*	Allocator<T>::ALLOC_HOT(unsigned int&& n, const unsigned long& alig
 }
 
 template <typename T>
-constexpr T*	Allocator<T>::ALLOC_HOT(const unsigned int& n, const unsigned long& align)
+constexpr T*	
+Allocator<T>::ALLOC_HOT(const unsigned int& n, const unsigned long& align)
 {
 	const long maxAlign			= sysconf(_SC_PAGE_SIZE);
 	unsigned long	alignSize 	= align;
@@ -203,7 +222,8 @@ constexpr T*	Allocator<T>::ALLOC_HOT(const unsigned int& n, const unsigned long&
 }
 
 template <typename T>
-constexpr void	Allocator<T>::DEALLOC_HOT(T* ptr, unsigned long&& align)
+constexpr void
+Allocator<T>::DEALLOC_HOT(T* ptr, unsigned long&& align)
 {
 	const long maxAlign	= sysconf(_SC_PAGE_SIZE);
 	if (align >=  maxAlign)
@@ -214,7 +234,8 @@ constexpr void	Allocator<T>::DEALLOC_HOT(T* ptr, unsigned long&& align)
 }
 
 template <typename T>
-constexpr void	Allocator<T>::DEALLOC_HOT(T* ptr, const unsigned long& align)
+constexpr void
+Allocator<T>::DEALLOC_HOT(T* ptr, const unsigned long& align)
 {
 	const long maxAlign	= sysconf(_SC_PAGE_SIZE);
 	if (align >=  maxAlign)

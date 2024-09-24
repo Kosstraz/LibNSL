@@ -21,19 +21,21 @@ Function<TRet, TArgs ...>::Function(FUNTYPE fun) noexcept : fun(fun)
 
 template <typename TRet, typename ... TArgs>
 Function<TRet, TArgs ...>::FUNTYPE
-	Function<TRet, TArgs ...>::Get() const noexcept
+Function<TRet, TArgs ...>::Get() const noexcept
 {
 	return (this->fun);
 }
 
 template <typename TRet, typename ... TArgs>
-TRet	Function<TRet, TArgs ...>::Play(TArgs ...args) const noexcept
+TRet
+Function<TRet, TArgs ...>::Play(TArgs ...args) const noexcept
 {
 	return (this->fun(args ...));
 }
 
 template <typename TRet, typename ... TArgs>
-void	Function<TRet, TArgs ...>::Replace(FUNTYPE fun) noexcept
+void
+Function<TRet, TArgs ...>::Replace(FUNTYPE fun) noexcept
 {
 	this->fun = fun;
 }

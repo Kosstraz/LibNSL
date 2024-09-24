@@ -132,4 +132,5 @@ private:
 };
 
 # include "template/String.inl"
+# include "template/String_op.inl"
 #endif

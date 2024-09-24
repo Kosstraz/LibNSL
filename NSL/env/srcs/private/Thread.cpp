@@ -22,7 +22,8 @@ Thread::~Thread()
 	
 }
 
-void	Thread::TryStop()
+void
+Thread::TryStop()
 {
 	pthread_cancel(this->thread);
 	pthread_join(this->thread, nullptr);

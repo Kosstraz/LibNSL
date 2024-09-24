@@ -2,9 +2,14 @@
 
 int	main()
 {
+	//for (int i = 0 ; i < 10 ; i++)
+	//	Benchmark_Vector3_AVX();
+	//_mm_ez /= 10;
+	//std::cout << "\e[1m\n\nAverage perf --> " << _mm_ez << "%\e[0m" << std::endl;
+	return (0);
 }
 
-	// THREADING TESTS
+	// THREADING TESTING
 
 /*float	ThreadTesting(String parameter /* can put infinite parameters )
 {

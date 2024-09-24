@@ -14,19 +14,22 @@ Pool::~Pool()
 	this->Release();
 }
 
-void	Pool::RemoveAt(int&& index)
+void
+Pool::RemoveAt(int&& index)
 {
 	this->size--;
 	this->objects.erase(this->objects.begin() + index);
 }
 
-void	Pool::RemoveAt(const int& index)
+void
+Pool::RemoveAt(const int& index)
 {
 	this->size--;
 	this->objects.erase(this->objects.begin() + index);
 }
 
-void	Pool::Release(void)
+void
+Pool::Release(void)
 {
 	if (!this->deleted)
 	{
@@ -35,12 +38,14 @@ void	Pool::Release(void)
 	}
 }
 
-int	Pool::Size(void)
+int
+Pool::Size(void)
 {
 	return (this->size);
 }
 
-bool	Pool::IsEmpty(void)
+bool
+Pool::IsEmpty(void)
 {
 	return (!static_cast<bool>(this->size));
 }

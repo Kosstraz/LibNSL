@@ -68,7 +68,8 @@ Thread::Thread(	Function<TRet, TFunArgs ...> funThread,
 #pragma region constructorHelper
 
 template <typename TRet, typename ... TFunArgs, typename ... TArgs>
-void	Thread::constructor(TRet (*f)(TFunArgs ...), TArgs ...args)
+void
+Thread::constructor(TRet (*f)(TFunArgs ...), TArgs ...args)
 {
 	this->wrapperHelper = new WrapperHelper;
 	this->wrapperHelper->funPtr = reinterpret_cast<void*&>(f);
@@ -77,7 +78,8 @@ void	Thread::constructor(TRet (*f)(TFunArgs ...), TArgs ...args)
 }
 
 template <typename TRet>
-void	Thread::basic_constructor(TRet (*f)())
+void
+Thread::basic_constructor(TRet (*f)())
 {
 	this->wrapperHelper = new WrapperHelper;
 	this->wrapperHelper->funPtr = reinterpret_cast<void*&>(f);
@@ -86,7 +88,8 @@ void	Thread::basic_constructor(TRet (*f)())
 }
 
 template <typename TRet>
-void	Thread::voidptr_constructor(TRet (*f)(void*), void* arg)
+void
+Thread::voidptr_constructor(TRet (*f)(void*), void* arg)
 {
 	this->wrapperHelper = new WrapperHelper;
 	this->wrapperHelper->funPtr = reinterpret_cast<void*&>(f);
@@ -104,7 +107,8 @@ void	Thread::voidptr_constructor(TRet (*f)(void*), void* arg)
 #pragma region ThreadWrapper
 
 template <typename TRet, typename TFun, typename ... TArgs>
-void*	Thread::ThreadWrapper(void* args)
+void*
+Thread::ThreadWrapper(void* args)
 {
 	Thread::WrapperHelper*	helpingArgs = static_cast<Thread::WrapperHelper*>(args);
 	TFun	funPtr						= reinterpret_cast<TFun>(helpingArgs->funPtr);
@@ -116,7 +120,8 @@ void*	Thread::ThreadWrapper(void* args)
 }
 
 template <typename TRet>
-void*	Thread::BasicThreadWrapper(void* args)
+void*
+Thread::BasicThreadWrapper(void* args)
 {
 	Thread::WrapperHelper*	helpingArgs = static_cast<Thread::WrapperHelper*>(args);
 	TRet (*funPtr)()			= reinterpret_cast<TRet (*)()>(helpingArgs->funPtr);
@@ -126,7 +131,8 @@ void*	Thread::BasicThreadWrapper(void* args)
 }
 
 template <typename TRet>
-void*	Thread::VoidptrThreadWrapper(void* args)
+void*
+Thread::VoidptrThreadWrapper(void* args)
 {
 	Thread::WrapperHelper*	helpingArgs = static_cast<Thread::WrapperHelper*>(args);
 	TRet (*funPtr)(void*)			= reinterpret_cast<TRet (*)(void*)>(helpingArgs->funPtr);

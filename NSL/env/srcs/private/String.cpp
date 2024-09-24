@@ -26,7 +26,8 @@ String::~String()
 	this->Destroy();
 }
 
-void	String::__replace__(const String& str) noexcept
+void
+String::__replace__(const String& str) noexcept
 {
 	unsigned int	newSize = str.Len();
 
@@ -39,7 +40,8 @@ void	String::__replace__(const String& str) noexcept
 	this->_setSize_(newSize);
 }
 
-void	String::__join__(const String& str) noexcept
+void
+String::__join__(const String& str) noexcept
 {
 	unsigned int	thisLen = this->Len();
 	unsigned int	dataLen = str.Len();
@@ -61,20 +63,17 @@ void	String::__join__(const String& str) noexcept
 
 #pragma region __length__
 #if defined(AVX2)
-uint64	String::__length__() const noexcept
+uint64
+String::__length__() const noexcept
 {
 	uint64			i	= 0ULL;
 	const int256	z	= _mm256_setzero_si256();
 	const int256*	mem	= (const int256*)this->data;
-	int256			chunk;
-	int256			mask;
-	int				result;
 
 	for ( ; ; i += 1ULL)
 	{
-		chunk	= _mm256_loadu_si256(&mem[i]);
-		mask	= _mm256_cmpeq_epi8(z, chunk);
-		result	= _mm256_movemask_epi8(mask);
+		const int256	chunk	= _mm256_loadu_si256(&mem[i]);
+		const int		result	= _mm256_movemask_epi8(_mm256_cmpeq_epi8(z, chunk));
 		if (result)
 			return (i * 32ULL + __builtin_ctz(result));
 
@@ -82,27 +81,25 @@ uint64	String::__length__() const noexcept
 	assert(false);
 }
 #elif defined(SSE2)
-uint64	String::__length__() const noexcept
+uint64
+String::__length__() const noexcept
 {
 	uint64			i	= 0ULL;
 	const int128	z	= _mm_setzero_si128();
 	const int128*	mem	= (const int128*)this->data;
-	int128			chunk;
-	int128			mask;
-	int				result;
 
 	for ( ; ; i += 1ULL)
 	{
-		chunk	= _mm_loadu_si128(&mem[i]);
-		mask	= _mm_cmpeq_epi8(z, chunk);
-		result	= _mm_movemask_epi8(mask);
+		const int128	chunk	= _mm_loadu_si128(&mem[i]);
+		const int		result	= _mm_movemask_epi8(_mm_cmpeq_epi8(z, chunk));
 		if (result)
 			return (i * 16ULL + __builtin_ctz(result));
 	}
 	assert(false);
 }
 #else
-uint64	String::__length__() const noexcept
+uint64
+String::__length__() const noexcept
 {
 	uint64 i = 0;
 	for ( ; this->data[i] ; i++) ;
@@ -119,20 +116,17 @@ uint64	String::__length__() const noexcept
 
 #pragma region static __length__
 #if defined(AVX2)
-uint64	String::__length__(const String& str) noexcept
+uint64
+String::__length__(const String& str) noexcept
 {
 	uint64			i	= 0ULL;
 	const int256	z	= _mm256_setzero_si256();
 	const int256*	mem	= (const int256*)str.data;
-	int256			chunk;
-	int256			mask;
-	int				result;
 
 	for ( ; ; i += 1ULL)
 	{
-		chunk	= _mm256_loadu_si256(&mem[i]);
-		mask	= _mm256_cmpeq_epi8(z, chunk);
-		result	= _mm256_movemask_epi8(mask);
+		const int256	chunk	= _mm256_loadu_si256(&mem[i]);
+		const int		result	= _mm256_movemask_epi8(_mm256_cmpeq_epi8(z, chunk));
 		if (result)
 			return (i * 32ULL + __builtin_ctz(result));
 
@@ -140,27 +134,25 @@ uint64	String::__length__(const String& str) noexcept
 	assert(false);
 }
 #elif defined(SSE2)
-uint64	String::__length__(const String& str) noexcept
+uint64
+String::__length__(const String& str) noexcept
 {
 	uint64			i	= 0ULL;
 	const int128	z	= _mm_setzero_si128();
 	const int128*	mem	= (const int128*)str.data;
-	int128			chunk;
-	int128			mask;
-	int				result;
 
 	for ( ; ; i += 1ULL)
 	{
-		chunk	= _mm_loadu_si128(&mem[i]);
-		mask	= _mm_cmpeq_epi8(z, chunk);
-		result	= _mm_movemask_epi8(mask);
+		const int128	chunk	= _mm_loadu_si128(&mem[i]);
+		const int		result	= _mm_movemask_epi8(_mm_cmpeq_epi8(z, chunk));
 		if (result)
 			return (i * 16ULL + __builtin_ctz(result));
 	}
 	assert(false);
 }
 #else
-uint64	String::__length__(const String& str) noexcept
+uint64
+String::__length__(const String& str) noexcept
 {
 	uint64 i = 0;
 	for ( ; str.data[i] ; i++) ;
