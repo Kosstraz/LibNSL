@@ -2,9 +2,9 @@
 
 int	main()
 {
-	
-	return (0);
 }
+
+	// THREADING TESTING
 
 /*float	ThreadTesting(String parameter /* can put infinite parameters )
 {

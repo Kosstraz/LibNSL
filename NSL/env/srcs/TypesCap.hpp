@@ -89,6 +89,19 @@ namespace private_removeConstStructs
 	};
 }
 
+namespace private_EnableIf
+{
+	template <typename T, const bool BCondition>
+	struct EnableIFStruct
+	{
+		typedef T	TType;
+	};
+	template <typename T>
+	struct EnableIFStruct<T, false>
+	{
+	};
+}
+
 /************/
 /*	PUBLIC	*/
 /************/
@@ -96,6 +109,7 @@ namespace private_removeConstStructs
 /********************/
 /*	REMOVE TYPES	*/
 /********************/
+
 
 template <typename T>
 using RemoveRef = typename private_removeRefStructs::RemoveRefStruct<T>::type;
@@ -115,6 +129,9 @@ using RawType = RemoveConst<RemoveRef<RemovePtr<T>>>;
 
 namespace Types
 {
+
+template <typename T, const bool BCondition>
+using EnableIF = private_EnableIf::EnableIFStruct<T, BCondition>::TType;
 
 // Knowing if two types are the same
 template <typename T, typename U>

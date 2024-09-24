@@ -73,7 +73,6 @@
 # include "srcs/String.hpp"
 
 // ?Include Vector3 & Vector4 (for mathematical usage)
-// Do not use
 # include "srcs/MathVectors.h"
 
 #endif

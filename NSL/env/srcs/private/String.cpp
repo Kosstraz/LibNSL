@@ -66,14 +66,17 @@ uint64	String::__length__() const noexcept
 	uint64			i	= 0ULL;
 	const int256	z	= _mm256_setzero_si256();
 	const int256*	mem	= (const int256*)this->data;
+	int256			chunk;
+	int256			mask;
+	int				result;
 
 	for ( ; ; i += 1ULL)
 	{
-		const int256	chunk	= _mm256_loadu_si256(&mem[i]);
-		const int256	mask	= _mm256_cmpeq_epi8(z, chunk);
-		const int		val		= _mm256_movemask_epi8(mask);
-		if (val)
-			return (i * 32ULL + __builtin_ctz(val));
+		chunk	= _mm256_loadu_si256(&mem[i]);
+		mask	= _mm256_cmpeq_epi8(z, chunk);
+		result	= _mm256_movemask_epi8(mask);
+		if (result)
+			return (i * 32ULL + __builtin_ctz(result));
 
 	}
 	assert(false);
@@ -84,14 +87,17 @@ uint64	String::__length__() const noexcept
 	uint64			i	= 0ULL;
 	const int128	z	= _mm_setzero_si128();
 	const int128*	mem	= (const int128*)this->data;
+	int128			chunk;
+	int128			mask;
+	int				result;
 
 	for ( ; ; i += 1ULL)
 	{
-		const int128	chunk	= _mm_loadu_si128(&mem[i]);
-		const int128	mask	= _mm_cmpeq_epi8(z, chunk);
-		const int		val		= _mm_movemask_epi8(mask);
-		if (val)
-			return (i * 16ULL + __builtin_ctz(val));
+		chunk	= _mm_loadu_si128(&mem[i]);
+		mask	= _mm_cmpeq_epi8(z, chunk);
+		result	= _mm_movemask_epi8(mask);
+		if (result)
+			return (i * 16ULL + __builtin_ctz(result));
 	}
 	assert(false);
 }
@@ -118,14 +124,17 @@ uint64	String::__length__(const String& str) noexcept
 	uint64			i	= 0ULL;
 	const int256	z	= _mm256_setzero_si256();
 	const int256*	mem	= (const int256*)str.data;
+	int256			chunk;
+	int256			mask;
+	int				result;
 
 	for ( ; ; i += 1ULL)
 	{
-		const int256	chunk	= _mm256_loadu_si256(&mem[i]);
-		const int256	mask	= _mm256_cmpeq_epi8(z, chunk);
-		const int		val		= _mm256_movemask_epi8(mask);
-		if (val)
-			return (i * 32ULL + __builtin_ctz(val));
+		chunk	= _mm256_loadu_si256(&mem[i]);
+		mask	= _mm256_cmpeq_epi8(z, chunk);
+		result	= _mm256_movemask_epi8(mask);
+		if (result)
+			return (i * 32ULL + __builtin_ctz(result));
 
 	}
 	assert(false);
@@ -136,14 +145,17 @@ uint64	String::__length__(const String& str) noexcept
 	uint64			i	= 0ULL;
 	const int128	z	= _mm_setzero_si128();
 	const int128*	mem	= (const int128*)str.data;
+	int128			chunk;
+	int128			mask;
+	int				result;
 
 	for ( ; ; i += 1ULL)
 	{
-		const int128	chunk	= _mm_loadu_si128(&mem[i]);
-		const int128	mask	= _mm_cmpeq_epi8(z, chunk);
-		const int		val		= _mm_movemask_epi8(mask);
-		if (val)
-			return (i * 16ULL + __builtin_ctz(val));
+		chunk	= _mm_loadu_si128(&mem[i]);
+		mask	= _mm_cmpeq_epi8(z, chunk);
+		result	= _mm_movemask_epi8(mask);
+		if (result)
+			return (i * 16ULL + __builtin_ctz(result));
 	}
 	assert(false);
 }

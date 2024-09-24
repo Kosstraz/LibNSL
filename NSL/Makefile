@@ -29,6 +29,7 @@ SRCS =	./env/SIMDplatform.cpp					\
 		./env/srcs/private/Mutex.cpp			\
 		./env/srcs/private/Thread.cpp			\
 		./env/srcs/private/MultiThreading.cpp	\
+		./env/srcs/private/Vector3.cpp			\
 		\
 		./main.cpp
 
@@ -50,7 +51,7 @@ LIB = -lpthread
 #*    REGLES    *#
 # ############## #
 
-all: $(NAME)
+all: YAY $(NAME)
 
 $(NAME): $(OBJS)
 	$(CXX) $(CFLAGS) $(OBJS) $(LIB) -o $@
@@ -80,3 +81,8 @@ re: fclean all
 # ############## #
 #*    AUTRES    *#
 # ############## #
+
+YAY:
+	@echo "$(PURPLE)$(BOLD)Compilation avec les flags suivants : "
+	@echo $(CFLAGS)
+	@echo "$(CLASSIC)"
