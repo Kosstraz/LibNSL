@@ -38,8 +38,6 @@ struct	Unpack
 	}
 };
 
-#include <assert.h>
-#include <iostream>
 // For non-static method calls
 template <typename TFun, typename TObject, typename ... TPack>
 struct	NSUnpack
