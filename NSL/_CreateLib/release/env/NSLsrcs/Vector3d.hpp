@@ -3,8 +3,8 @@
 
 # include <cmath>
 # include "TypesCap.hpp"
-# include "../SIMDplatform.h"
-# include "../platform.h"
+# include "../NSL_SIMDplatform.h"
+# include "../NSL_platform.h"
 
 // Produit mixte (Triple produit scalaire)
 // Projection d'un vecteur vers un autre

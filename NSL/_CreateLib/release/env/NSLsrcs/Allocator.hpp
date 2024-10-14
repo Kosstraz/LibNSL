@@ -22,7 +22,7 @@
 	// Goodbye macEZ !
 # endif
 
-# include "../platform.h"
+# include "../NSL_platform.h"
 
 # ifdef ALLOCATORT_NAMES
 #  define ALLOC_		allocate

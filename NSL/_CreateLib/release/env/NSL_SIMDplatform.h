@@ -94,6 +94,6 @@ typedef __m128d	double128;
 typedef __m256d	double256;
 typedef __m512d	double512;
 
-extern void	print_compatibleSIMD();
+extern void	NSLprint_compatibleSIMD();
 
 #endif

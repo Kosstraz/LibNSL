@@ -7,7 +7,7 @@
 #define NSL_IOSTREAMS_HPP
 
 # include "String.hpp"
-# include "../platform.h"
+# include "../NSL_platform.h"
 # include <cstring>
 # include <unistd.h>
 

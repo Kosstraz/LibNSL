@@ -6,7 +6,7 @@
 #ifndef NSL_TYPESCAP_HPP
 #define NSL_TYPESCAP_HPP
 
-# include "../platform.h"
+# include "../NSL_platform.h"
 
 /************/
 /*	PRIVATE	*/

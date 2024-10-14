@@ -20,21 +20,21 @@ YELLOW 	= \e[38;2;250;189;0m
 
 NAME = libnsl.a
 
-CXX =	c++
+CXX =	@c++
 
-AR =	ar -rcs
+AR =	@ar -rcs
 
-SRCS =	./env/SIMDplatform.cpp					\
-		./env/srcs/private/String.cpp			\
-		./env/srcs/private/IOStream.cpp			\
-		./env/srcs/private/Pool.cpp				\
-		./env/srcs/private/Mutex.cpp			\
-		./env/srcs/private/Thread.cpp			\
-		/env/srcs/private/MultiThreading.cpp	\
-		./env/srcs/private/Vector3d.cpp			\
-		./env/srcs/private/Vector3d_op.cpp		\
-		./env/srcs/private/Vector3f.cpp			\
-		./env/srcs/private/Vector3f_op.cpp		\
+SRCS =	./env/NSL_SIMDplatform.cpp					\
+		./env/NSLsrcs/private/String.cpp			\
+		./env/NSLsrcs/private/IOStream.cpp			\
+		./env/NSLsrcs/private/Pool.cpp				\
+		./env/NSLsrcs/private/Mutex.cpp				\
+		./env/NSLsrcs/private/Thread.cpp			\
+		./env/NSLsrcs/private/MultiThreading.cpp	\
+		./env/NSLsrcs/private/Vector3d.cpp			\
+		./env/NSLsrcs/private/Vector3d_op.cpp		\
+		./env/NSLsrcs/private/Vector3f.cpp			\
+		./env/NSLsrcs/private/Vector3f_op.cpp		\
 
 LMAKE = @make --no-print-directory -C
 

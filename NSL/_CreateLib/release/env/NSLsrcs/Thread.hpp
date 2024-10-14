@@ -6,7 +6,7 @@
 #ifndef NSL_THREAD_HPP
 #define NSL_THREAD_HPP
 
-# include "../platform.h"
+# include "../NSL_platform.h"
 
 # include "Function.hpp"
 # include "Package.hpp"
