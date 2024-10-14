@@ -18,9 +18,11 @@ YELLOW 	= \e[38;2;250;189;0m
 #*   VARIABLES   *#
 # ############### #
 
-NAME = a.out
+NAME = libnsl.a
 
-CXX = @c++ -std=c++20
+CXX =	c++
+
+AR =	ar -rcs
 
 SRCS =	./env/SIMDplatform.cpp					\
 		./env/srcs/private/String.cpp			\
@@ -28,13 +30,11 @@ SRCS =	./env/SIMDplatform.cpp					\
 		./env/srcs/private/Pool.cpp				\
 		./env/srcs/private/Mutex.cpp			\
 		./env/srcs/private/Thread.cpp			\
-		./env/srcs/private/MultiThreading.cpp	\
+		/env/srcs/private/MultiThreading.cpp	\
 		./env/srcs/private/Vector3d.cpp			\
 		./env/srcs/private/Vector3d_op.cpp		\
 		./env/srcs/private/Vector3f.cpp			\
 		./env/srcs/private/Vector3f_op.cpp		\
-		\
-		./main.cpp
 
 LMAKE = @make --no-print-directory -C
 
@@ -46,7 +46,7 @@ DEPS = $(OBJS:%.obj=%.d)
 
 INCLUDES = -I ./env/srcs -I .
 
-CFLAGS = -Wall -Wextra -Winline -Wno-comment -MMD -O3 -march=native #-g3
+CFLAGS = -std=c++20 -Wall -Wextra -Winline -Wno-comment -MMD -O3 -march=native #-g3
 
 LIB = -lpthread
 
@@ -57,7 +57,7 @@ LIB = -lpthread
 all: YAY $(NAME)
 
 $(NAME): $(OBJS)
-	$(CXX) $(CFLAGS) $(OBJS) $(LIB) -o $@
+	$(AR)  $(NAME) $(OBJS) -o $@
 	@echo "$(BOLD)$(CYAN)Exécutable $(NAME) créé avec succès!$(CLASSIC)"
 
 $(OBJS_DIR)/%.obj: %.cpp
