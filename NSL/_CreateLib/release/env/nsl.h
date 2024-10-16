@@ -74,7 +74,7 @@
 // Todo: .FindNotFirstOf()
 // Todo: .FindNotLastOf()
 // Todo: .Insert()  --> char & String
-# include "NSLsrcs/String.hpp"
+# include "srcs/String.hpp"
 
 // ?Maths namespace
 # include "NSLsrcs/Maths.hpp"

@@ -39,7 +39,7 @@ MultiThreading::Create(const String& threadName, TRet (*fun)()) noexcept
 FORCEINLINE bool
 MultiThreading::IsAlive(const String& threadName) noexcept
 {
-	return (MultiThreading::__isExist__(threadName));
+	return (MultiThreading::__isAlive__(threadName));
 }
 
 FORCEINLINE bool
@@ -51,13 +51,31 @@ MultiThreading::IsExist(const String& threadName) noexcept
 FORCEINLINE bool
 MultiThreading::IsAlive(String&& threadName) noexcept
 {
-	return (MultiThreading::__isExist__(Memory::Move(threadName)));
+	return (MultiThreading::__isAlive__(Memory::Move(threadName)));
 }
 
 FORCEINLINE bool
 MultiThreading::IsExist(String&& threadName) noexcept
 {
 	return (MultiThreading::__isExist__(Memory::Move(threadName)));
+}
+
+FORCEINLINE bool
+MultiThreading::__isAlive__(String&& threadName) noexcept
+{
+	if (MultiThreading::threads.contains(Memory::Move(threadName)))
+		if (MultiThreading::threads.at(Memory::Move(threadName)).IsAlive())
+			return (true);
+	return (false);
+}
+
+FORCEINLINE bool
+MultiThreading::__isAlive__(const String& threadName) noexcept
+{
+	if (MultiThreading::threads.contains(Memory::Move(threadName)))
+		if (MultiThreading::threads.at(Memory::Move(threadName)).IsAlive())
+			return (true);
+	return (false);
 }
 
 FORCEINLINE bool
@@ -69,7 +87,7 @@ MultiThreading::__isExist__(String&& threadName) noexcept
 FORCEINLINE bool
 MultiThreading::__isExist__(const String& threadName) noexcept
 {
-	return (MultiThreading::threads.contains(threadName));
+	return (MultiThreading::threads.contains(Memory::Move(threadName)));
 }
 
 #endif
