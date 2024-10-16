@@ -58,6 +58,7 @@ public:
 	~Thread();
 #pragma endregion
 
+	bool	IsAlive();
 	void	TryStop();
 
 	// Receive a message from Thread::Send()
@@ -78,6 +79,22 @@ public:
 		return (ret);
 	}
 
+	// Check if Thread can get return value, if not, throw an exception
+	template <typename TRet>
+	FORCEINLINE TRet	TryGet()
+	{
+		void*	buffer;
+		TRet	ret;
+		if (this->joined)
+			throw (Thread::IsStillAliveException());
+		else if (pthread_tryjoin_np(this->thread, &buffer) == EBUSY)
+			throw (Thread::IsStillAliveException());
+		this->joined = true;
+		ret = *static_cast<TRet*>(buffer);
+		delete(static_cast<int*>(buffer));//::operator delete(buffer);
+		return (ret);
+	}
+
 	// Waits for the thread to finish and returns its Thread::Return() value
 	template <typename TRet>
 	FORCEINLINE TRet	Get()
@@ -85,16 +102,18 @@ public:
 		void*	buffer;
 		TRet	ret;
 		pthread_join(this->thread, &buffer);
+		this->joined = true;
 		ret = *static_cast<TRet*>(buffer);
 		delete(static_cast<int*>(buffer));//::operator delete(buffer);
 		return (ret);
 	}
 
 	// Waits for thread end
-	FORCEINLINE void	Wait()
+	FORCEINLINE void	Wait() noexcept
 	{
 		void*	buffer;
 		pthread_join(this->thread, &buffer);
+		this->joined = true;
 		::operator delete(buffer);
 	}
 	// FRANCAIS :
@@ -131,8 +150,10 @@ public:
 		Thread::mutex_send.Unlock();
 	}
 
-	//template <typename TRet>
-	//FORCEINLINE static void	IsAlive
+	class IsStillAliveException
+	{
+		const char* what() const noexcept;
+	};
 
 private:
 	template <typename TObject, typename TRet, typename TFun, typename ... TArgs>
@@ -158,7 +179,7 @@ private:
 	static std::map<String, void*>
 							async_send;
 	static Mutex			mutex_send;
-	pthread_attr_t*			attr;
+	bool					joined;
 	pthread_t				thread;
 	WrapperHelper*			wrapperHelper = nullptr;
 };
