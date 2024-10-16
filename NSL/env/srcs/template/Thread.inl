@@ -11,31 +11,27 @@
 #pragma region Constructor
 
 template <typename TRet>
-Thread::Thread(	TRet (*funThread)()) :
-										attr(nullptr)
+Thread::Thread(	TRet (*funThread)()) : joined(false)
 {
 	this->basic_constructor(funThread);
 }
 
 template <typename TRet>
 Thread::Thread(TRet (*funThread)(void*),
-				void* arg) :
-									attr(nullptr)
+				void* arg) : joined(false)
 {
 	this->voidptr_constructor(funThread, arg);
 }
 
 template <typename TRet, typename ... TFunArgs, typename ... TArgs>
 Thread::Thread(TRet (*funThread)(TFunArgs ...),
-				TArgs ...args) :
-									attr(nullptr)
+				TArgs ...args) : joined(false)
 {
 	this->constructor(funThread, args...);
 }
  
 template <typename TRet>
-Thread::Thread(	Function<TRet> funThread) :
-													attr(nullptr)
+Thread::Thread(	Function<TRet> funThread) : joined(false)
 {
 	TRet (*funTmp)() = static_cast<TRet (*)()>(funThread);
 	this->basic_constructor(funTmp);
@@ -43,16 +39,14 @@ Thread::Thread(	Function<TRet> funThread) :
 
 template <typename TRet>
 Thread::Thread(Function<TRet, void*> funThread,
-				void* arg) :
-									attr(nullptr)
+				void* arg) : joined(false)
 {
 	this->voidptr_constructor(funThread, arg);
 }
 
 template <typename TRet, typename ... TFunArgs, typename ... TArgs>
 Thread::Thread(	Function<TRet, TFunArgs ...> funThread,
-				TArgs ...args) :
-									attr(nullptr)
+				TArgs ...args) : joined(false)
 {
 	TRet (*funTmp)(TArgs ...) = static_cast<TRet (*)(TArgs ...)>(funThread);
 	this->constructor<TRet>(funTmp, args...);
@@ -63,11 +57,11 @@ Thread::Thread(	Function<TRet, TFunArgs ...> funThread,
 
 
 
-#include <iostream> //!eza
+
 
 #pragma region Constructor non-static methods
 template <typename TObject, typename TRet, typename... TFunArgs, typename... TArgs>
-Thread::Thread(TRet (TObject::*funmethod)(TFunArgs ...), TObject* obj, TArgs ...args)
+Thread::Thread(TRet (TObject::*funmethod)(TFunArgs ...), TObject* obj, TArgs ...args) : joined(false)
 {
 	this->constructor_methods(funmethod, obj, args...);
 }
@@ -182,5 +176,13 @@ Thread::ThreadWrapperMethods(void* args)
 }
 
 #pragma endregion
+
+
+
+
+#pragma region Methods
+
+#pragma endregion
+
 
 #endif
