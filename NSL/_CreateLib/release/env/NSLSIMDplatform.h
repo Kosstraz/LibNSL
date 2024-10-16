@@ -3,8 +3,8 @@
  * Licensed under the MIT License.
 */
 
-#ifndef NSL_SIMDPLATFORM_H
-#define NSL_SIMDPLATFORM_H
+#ifndef NSLSIMDPLATFORM_H
+#define NSLSIMDPLATFORM_H
 
 # if defined(__x86_64__) || defined(__amd64__) 							// ifAMD/Intel/ARM
 #  define INTEL
@@ -94,6 +94,6 @@ typedef __m128d	double128;
 typedef __m256d	double256;
 typedef __m512d	double512;
 
-extern void	NSLprint_compatibleSIMD();
+extern void	print_compatibleSIMD();
 
 #endif

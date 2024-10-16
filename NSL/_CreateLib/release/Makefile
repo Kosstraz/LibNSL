@@ -24,7 +24,7 @@ CXX =	@c++
 
 AR =	@ar -rcs
 
-SRCS =	./env/NSL_SIMDplatform.cpp					\
+SRCS =	./env/NSLSIMDplatform.cpp					\
 		./env/NSLsrcs/private/String.cpp			\
 		./env/NSLsrcs/private/IOStream.cpp			\
 		./env/NSLsrcs/private/Pool.cpp				\

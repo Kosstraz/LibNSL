@@ -6,84 +6,144 @@
 #ifndef NSL_TYPESCAP_HPP
 #define NSL_TYPESCAP_HPP
 
-# include "../NSL_platform.h"
+# include "../NSLplatform.h"
 
 /************/
 /*	PRIVATE	*/
 /************/
 
-namespace private_removeRefStructs
+namespace private_RemoveRef
 {
 	template <typename T>
 	struct RemoveRefStruct
 	{
-		typedef	T	type;
+		typedef	T	Type;
 	};
 
 	template <typename T>
 	struct RemoveRefStruct<T&>
 	{
-		typedef	T	type;
+		typedef	T	Type;
 	};
 
 	template <typename T>
 	struct RemoveRefStruct<T&&>
 	{
-		typedef	T	type;
+		typedef	T	Type;
 	};
 
 	template <typename T>
 	struct RemoveRefStruct<const T&>
 	{
-		typedef	const T	type;
+		typedef	const T	Type;
 	};
 }
 
-namespace private_removePtrStructs
+namespace private_RemovePtr
 {
 	template <typename T>
 	struct RemovePtrStruct
 	{
-		typedef	T	type;
+		typedef	T	Type;
 	};
 
 	template <typename T>
 	struct RemovePtrStruct<T*>
 	{
-		typedef	T	type;
+		typedef	T	Type;
 	};
 
 	template <typename T>
 	struct RemovePtrStruct<const T*>
 	{
-		typedef	const T	type;
+		typedef	const T	Type;
+	};
+
+	template <typename T>
+	struct RemovePtrStruct<T* const>
+	{
+		typedef T	Type;
+	};
+
+	template <typename T>
+	struct RemovePtrStruct<T* volatile>
+	{
+		typedef T	Type;
 	};
 }
 
-namespace private_removeConstStructs
+namespace private_RemoveConst
 {
 	template <typename T>
 	struct RemoveConstStruct
 	{
-		typedef	T	type;
+		typedef	T	Type;
 	};
 
 	template <typename T>
 	struct RemoveConstStruct<const T>
 	{
-		typedef	T	type;
+		typedef	T	Type;
 	};
 
 	template <typename T>
 	struct RemoveConstStruct<const T&>
 	{
-		typedef	T&	type;
+		typedef	T&	Type;
 	};
 
 	template <typename T>
-	struct RemoveConstStruct<const T*>
+	struct RemoveConstStruct<T* const>
 	{
-		typedef	T*	type;
+		typedef	T*	Type;
+	};
+}
+
+namespace private_RemoveVolatile
+{
+	template <typename T>
+	struct RemoveVolatileStruct
+	{
+		typedef T	Type;
+	};
+
+	template <typename T>
+	struct RemoveVolatileStruct<volatile T>
+	{
+		typedef T	Type;
+	};
+
+	template <typename T>
+	struct RemoveVolatileStruct<T* volatile>
+	{
+		typedef T*	Type;
+	};
+
+	template <typename T>
+	struct RemoveVolatileStruct<volatile T&>
+	{
+		typedef T&	Type;
+	};
+}
+
+namespace private_RemoveArray
+{
+	template <typename T>
+	struct RemoveArrayStruct
+	{
+		typedef T	Type;
+	};
+
+	template <typename T>
+	struct RemoveArrayStruct<T[]>
+	{
+		typedef T	Type;
+	};
+
+	template <typename T, unsigned long N>
+	struct RemoveArrayStruct<T[N]>
+	{
+		typedef T	Type;
 	};
 }
 
@@ -92,11 +152,164 @@ namespace private_EnableIf
 	template <typename T, const bool BCondition>
 	struct EnableIFStruct
 	{
-		typedef T	TType;
+		typedef T	Type;
 	};
 	template <typename T>
 	struct EnableIFStruct<T, false>
 	{
+	};
+}
+
+namespace private_Conditional
+{
+	template <typename TTrue, typename TFalse, const bool BCondition>
+	struct ConditionalStruct
+	{
+		typedef TTrue	Type;
+	};
+
+	template <typename TTrue, typename TFalse>
+	struct ConditionalStruct<TTrue, TFalse, false>
+	{
+		typedef TFalse	Type;
+	};
+}
+
+namespace private_IsArray
+{
+	template <typename T>
+	struct IsArrayStruct
+	{
+		inline static constexpr bool	val = false;
+	};
+
+	template <typename T>
+	struct IsArrayStruct<T[]>
+	{
+		inline static constexpr bool	val = true;
+	};
+
+	template <typename T, unsigned long N>
+	struct IsArrayStruct<T[N]>
+	{
+		inline static constexpr bool	val = true;
+	};
+}
+
+namespace private_IsVolatile
+{
+	template <typename T>
+	struct IsVolatileStruct
+	{
+		inline static constexpr bool	val = false;
+	};
+
+	template <typename T>
+	struct IsVolatileStruct<volatile T>
+	{
+		inline static constexpr bool	val = true;
+	};
+}
+
+namespace private_IsConst
+{
+	template <typename T>
+	struct IsConstStruct
+	{
+		inline static constexpr bool	val = false;
+	};
+
+	template <typename T>
+	struct IsConstStruct<const T>
+	{
+		inline static constexpr bool	val = true;
+	};
+}
+
+namespace private_IsRef
+{
+	template <typename T>
+	struct IsRefStruct
+	{
+		inline static constexpr bool	val = false;
+	};
+
+	template <typename T>
+	struct IsRefStruct<T&>
+	{
+		inline static constexpr bool	val = true;
+	};
+}
+
+namespace private_IsRValue
+{
+	template <typename T>
+	struct IsRValueStruct
+	{
+		inline static constexpr bool	val = false;
+	};
+
+	template <typename T>
+	struct IsRValueStruct<T&&>
+	{
+		inline static constexpr bool	val = true;
+	};
+}
+
+namespace private_IsPtr
+{
+	template <typename T>
+	struct IsPtrStruct
+	{
+		inline static constexpr bool	val = false;
+	};
+
+	template <typename T>
+	struct IsPtrStruct<T*>
+	{
+		inline static constexpr bool	val = true;
+	};
+
+	template <typename T>
+	struct IsPtrStruct<T* const>
+	{
+		inline static constexpr bool	val = true;
+	};
+
+	template <typename T>
+	struct IsPtrStruct<T* volatile>
+	{
+		inline static constexpr bool	val = true;
+	};
+}
+
+namespace private_Decay
+{
+	template <typename T>
+	struct DecayStruct
+	{
+	private:
+		template <typename U>
+		using _RemoveVolatile	= typename private_RemoveVolatile::RemoveVolatileStruct<U>::Type;
+		template <typename U>
+		using _RemoveRef		= typename private_RemoveRef::RemoveRefStruct<U>::Type;
+		template <typename U>
+		using _RemoveConst		= typename private_RemoveConst::RemoveConstStruct<U>::Type;
+		template <typename U>
+		using _RemoveArray		= typename private_RemoveArray::RemoveArrayStruct<U>::Type;
+		template <typename TTrue, typename TFalse, const bool BCondition>
+		using _Conditional		= private_Conditional::ConditionalStruct<TTrue, TFalse, BCondition>::Type;
+		template <typename U>
+		inline constexpr static bool	_IsArray = private_IsArray::IsArrayStruct<U>::val;
+		template <typename U>
+		using _RawType = _RemoveConst<_RemoveRef<_RemoveVolatile<U>>>;
+
+	public:
+		typedef _RawType<
+					_Conditional<
+						_RemoveArray<T>*, T, _IsArray<T>
+					>
+				>	Type;
 	};
 }
 
@@ -110,16 +323,35 @@ namespace private_EnableIf
 
 
 template <typename T>
-using RemoveRef = typename private_removeRefStructs::RemoveRefStruct<T>::type;
+using RemoveVolatile = typename private_RemoveVolatile::RemoveVolatileStruct<T>::Type;
 
 template <typename T>
-using RemovePtr = typename private_removePtrStructs::RemovePtrStruct<T>::type;
+using RemoveRef = typename private_RemoveRef::RemoveRefStruct<T>::Type;
 
 template <typename T>
-using RemoveConst = typename private_removeConstStructs::RemoveConstStruct<T>::type;
+using RemovePtr = typename private_RemovePtr::RemovePtrStruct<T>::Type;
 
 template <typename T>
-using RawType = RemoveConst<RemoveRef<RemovePtr<T>>>;
+using RemoveConst = typename private_RemoveConst::RemoveConstStruct<T>::Type;
+
+template <typename T>
+using RemoveArray = typename private_RemoveArray::RemoveArrayStruct<T>::Type;
+
+template <typename T>
+using Decay = typename private_Decay::DecayStruct<T>::Type;
+
+template <typename T>
+using RawType = RemoveConst<
+					RemoveVolatile<
+						RemoveRef<
+							RemovePtr<
+								RemoveArray<
+									T
+								>
+							>
+						>
+					>
+				>;
 
 /************/
 /*	TYPES	*/
@@ -129,7 +361,13 @@ namespace Types
 {
 
 template <typename T, const bool BCondition>
-using EnableIF = private_EnableIf::EnableIFStruct<T, BCondition>::TType;
+using EnableIF = private_EnableIf::EnableIFStruct<T, BCondition>::Type;
+
+template <typename TTrue, typename TFalse, const bool BCondition>
+using Conditional = private_Conditional::ConditionalStruct<TTrue, TFalse, BCondition>::Type;
+
+template <typename T>
+inline constexpr bool	IsVolatile = private_IsVolatile::IsVolatileStruct<T>::val;
 
 // Knowing if two types are the same
 template <typename T, typename U>
@@ -277,6 +515,42 @@ inline constexpr bool	IsZero =
 		N == 0
 	);
 
+template <typename T>
+inline constexpr bool	IsArray =
+	(
+		private_IsArray::IsArrayStruct<T>::val
+	);
+
+template <typename T>
+inline constexpr bool	IsConst =
+	(
+		private_IsConst::IsConstStruct<T>::val
+	);
+
+template <typename T>
+inline constexpr bool	IsRef =
+	(
+		private_IsRef::IsRefStruct<T>::val
+	);
+
+template <typename T>
+inline constexpr bool	IsRValue =
+	(
+		private_IsRValue::IsRValueStruct<T>::val
+	);
+
+template <typename T>
+inline constexpr bool	IsPtr =
+	(
+		private_IsPtr::IsPtrStruct<T>::val
+	);
+
 }
+
+/****************/
+/*	TYPES DATA	*/
+/****************/
+
+//? Types::Name() in --> TypesName.hpp
 
 #endif

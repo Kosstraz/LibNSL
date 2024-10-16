@@ -22,7 +22,7 @@ NAME = a.out
 
 CXX = @c++ -std=c++20
 
-SRCS =	./env/SIMDplatform.cpp					\
+SRCS =	./env/NSLSIMDplatform.cpp					\
 		./env/srcs/private/String.cpp			\
 		./env/srcs/private/IOStream.cpp			\
 		./env/srcs/private/Pool.cpp				\

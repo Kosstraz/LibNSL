@@ -11,10 +11,22 @@
 namespace Memory
 {
 
-template <typename TCast>
-FORCEINLINE constexpr RemoveRef<TCast>&&	Move(TCast&& arg) noexcept
+template <typename T>
+FORCEINLINE constexpr RemoveRef<T>&&	Move(T& arg) noexcept
 {
-	return (static_cast<RemoveRef<TCast>&&>(arg));
+	return (static_cast<RemoveRef<T>&&>(arg));
+}
+
+template <typename T>
+FORCEINLINE constexpr RemoveRef<T>&&	Forward(RemoveRef<T>&& arg) noexcept
+{
+	return (static_cast<RemoveRef<T>&&>(arg));
+}
+
+template <typename T>
+FORCEINLINE constexpr RemoveRef<T>&&	Forward(RemoveRef<T>& arg) noexcept
+{
+	return (static_cast<RemoveRef<T>&&>(arg));
 }
 
 template <typename T>

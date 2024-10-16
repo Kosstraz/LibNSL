@@ -11,8 +11,8 @@
 # endif
 
 # include "Memory.hpp"
-# include "../SIMDplatform.h"
-# include "../platform.h"
+# include "../NSLSIMDplatform.h"
+# include "../NSLplatform.h"
 # include <string> // just for the conversion between String AND std::string
 
 class String final

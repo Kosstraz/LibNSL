@@ -9,9 +9,9 @@ String::String() : data(nullptr), size(0ULL), allocated(false), size_calculated(
 {
 }
 
-String::String(const std::string& str) : data(String::CString(str.data())), size(0ULL), allocated(true), size_calculated(false)
-{
-}
+//String::String(const std::string& str) : data(String::CString(str.data())), size(0ULL), allocated(true), size_calculated(false)
+//{
+//}
 
 String::String(const String& str) : data(String::CString(str)), size(0ULL), allocated(true), size_calculated(false)
 {
@@ -43,6 +43,8 @@ String::__replace__(const String& str) noexcept
 void
 String::__join__(const String& str) noexcept
 {
+	if (str.Empty())
+		return ;
 	unsigned int	thisLen = this->Len();
 	unsigned int	dataLen = str.Len();
 	unsigned int	totaLen = thisLen + dataLen + 2U;

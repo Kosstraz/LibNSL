@@ -3,8 +3,8 @@
  * Licensed under the MIT License.
 */
 
-#ifndef NSL_PLATFORM_H
-#define NSL_PLATFORM_H
+#ifndef NSLPLATFORM_H
+#define NSLPLATFORM_H
 
 #if defined(__clang__) || defined(__GNUC__)  || defined(__GNUG__)
 # define GNU_COMPILER
@@ -12,11 +12,15 @@
 
 	// FORCE INLINING
 #if defined(GNU_COMPILER)
-# define FORCEINLINE inline __attribute__((always_inline))
+# define FORCEINLINE		inline __attribute__((always_inline))
+# define FUNCTION_DETAILS	__PRETTY_FUNCTION__
+# define FUNCTION_NAME		__func__
 #elif defined(_MSC_VER)
-# define FORCEINLINE __forceinline
+# define FORCEINLINE		__forceinline
+# define FUNCTION_NAME		__func__
 #else
-# define FORCEINLINE inline
+# define FORCEINLINE		inline
+# define FUNCTION_NAME		__func__
 #endif
 
 	// FUNCTION RETURNING A MEMORY ALLOCATED BLOC

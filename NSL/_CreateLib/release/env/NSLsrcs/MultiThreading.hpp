@@ -25,9 +25,10 @@ public:
 	template <typename TRet>
 	static void	Create(const String& threadName, TRet (*)()) noexcept;
 	template <typename TRet>
-	static TRet	GetOne(const String& threadToGet) noexcept;
+	static TRet	Get(const String& threadToGet) noexcept;
 
-	static void	WaitOne(const String& threadToWait) noexcept;
+	using Thread::Wait;
+	static void	Wait(const String& threadToWait) noexcept ;
 
 	
 	static FORCEINLINE bool	IsAlive(const String& threadName) noexcept;

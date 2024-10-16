@@ -6,7 +6,7 @@
 #ifndef NSL_THREAD_HPP
 #define NSL_THREAD_HPP
 
-# include "../NSL_platform.h"
+# include "../NSLplatform.h"
 
 # include "Function.hpp"
 # include "Package.hpp"
@@ -97,7 +97,6 @@ public:
 		pthread_join(this->thread, &buffer);
 		::operator delete(buffer);
 	}
-
 	// FRANCAIS :
 	// Permet de quitter un thread, cependant si la fonction est appelé de manière native ET dans le MainThread, il faudra placer un 'return (...);' juste après, de manière à ce que la fonction quitte comme prévu, car cette fonction (Thread::Return) sera ignorée.
 	// Si elle est appelée de manière native dans un thread qui n'est pas le principal, le thread sera quitté entièrement.
@@ -131,6 +130,9 @@ public:
 		Thread::async_send.insert(std::make_pair<const String&, void*>(messageID, argptr));
 		Thread::mutex_send.Unlock();
 	}
+
+	//template <typename TRet>
+	//FORCEINLINE static void	IsAlive
 
 private:
 	template <typename TObject, typename TRet, typename TFun, typename ... TArgs>

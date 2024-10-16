@@ -1,0 +1,37 @@
+#ifndef PAIR_HPP
+#define PAIR_HPP
+
+# include "../NSLplatform.h"
+# include "TypesCap.hpp"
+
+# include <iostream>
+template <typename T1, typename T2>
+struct Pair
+{
+private:
+	typedef Decay<T1>	_T1;
+	typedef Decay<T2>	_T2;
+
+public:
+	constexpr	Pair() noexcept : key(), val()
+	{
+	}
+
+	constexpr	Pair(const T1& a, const T2& b) noexcept : key(_T1(a)), val(_T2(b))
+	{
+	}
+
+	constexpr	Pair(T1&& a, T2&& b) noexcept : key(Memory::Forward<T1>(a)), val(Memory::Forward<T2>(b))
+	{
+	}
+
+	virtual FORCEINLINE	~Pair()
+	{
+	}
+
+	_T1	key;
+	_T2	val;
+};
+
+
+#endif

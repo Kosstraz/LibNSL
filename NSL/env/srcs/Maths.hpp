@@ -1,7 +1,7 @@
 #ifndef NSL_MATHS_HPP
 #define NSL_MATHS_HPP
 
-# include "../platform.h"
+# include "../NSLplatform.h"
 
 namespace Maths
 {

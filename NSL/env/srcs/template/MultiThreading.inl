@@ -10,7 +10,7 @@
 
 template <typename TRet>
 TRet
-MultiThreading::GetOne(const String& threadToWait) noexcept
+MultiThreading::Get(const String& threadToWait) noexcept
 {
 	return (MultiThreading::threads.at(threadToWait).Get<TRet>());
 }

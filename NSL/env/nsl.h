@@ -6,8 +6,8 @@
 #ifndef NEW_STANDARD_LIBRARY_H
 #define NEW_STANDARD_LIBRARY_H
 
-# include "platform.h"
-# include "SIMDplatform.h"
+# include "NSLplatform.h"
+# include "NSLSIMDplatform.h"
 
 // !Two memory leaks in threading edge case (in the Thread class)
 // !If not, no memory leak currently detected
@@ -21,6 +21,10 @@
 // ?Type capabilities (everything is calculated at compile time)
 // Upcoming additions
 # include "srcs/TypesCap.hpp"
+
+// ?Allows to know the precise type
+// ?Less precise on compilers other than GNU (GCC/clang/...)
+# include "srcs/TypesName.hpp"
 
 // ?Equivalent à std::is_base_of_v
 # include "srcs/IsSubclassOf.hpp"
@@ -77,5 +81,8 @@
 
 // ?Include Vector3 & Vector4 (for mathematical usage)
 # include "srcs/MathVectors.h"
+
+// ?Equivalent to std::pair<T1, T2> (without use of std::make_pair(...))
+# include "srcs/Pair.hpp"
 
 #endif

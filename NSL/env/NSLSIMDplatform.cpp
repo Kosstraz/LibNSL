@@ -1,5 +1,5 @@
-#include "SIMDplatform.h"
-# include <iostream>
+#include "NSLSIMDplatform.h"
+#include <iostream>
 
 void	print_compatibleSIMD()
 {
