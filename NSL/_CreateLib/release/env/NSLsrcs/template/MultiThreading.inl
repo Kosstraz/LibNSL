@@ -23,9 +23,13 @@ MultiThreading::TryGet(const String& threadToWait)
 	{
 		return (MultiThreading::threads.at(threadToWait).TryGet<TRet>());
 	}
-	catch (Thread::IsStillAliveException&)
+	catch (Thread::IsStillAliveException& e)
 	{
-		throw (Thread::IsStillAliveException());
+		throw (e);
+	}
+	catch (...)
+	{
+		throw (std::exception());
 	}
 }
 
