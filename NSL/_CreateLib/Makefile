@@ -30,6 +30,7 @@ SRCS =	./env/NSLSIMDplatform.cpp					\
 		./env/NSLsrcs/private/Pool.cpp				\
 		./env/NSLsrcs/private/Mutex.cpp				\
 		./env/NSLsrcs/private/Thread.cpp			\
+		./env/NSLsrcs/private/Channel.cpp			\
 		./env/NSLsrcs/private/MultiThreading.cpp	\
 		./env/NSLsrcs/private/Vector3d.cpp			\
 		./env/NSLsrcs/private/Vector3d_op.cpp		\

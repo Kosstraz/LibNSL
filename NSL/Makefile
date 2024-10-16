@@ -22,12 +22,13 @@ NAME = a.out
 
 CXX = @c++ -std=c++20
 
-SRCS =	./env/NSLSIMDplatform.cpp					\
+SRCS =	./env/NSLSIMDplatform.cpp				\
 		./env/srcs/private/String.cpp			\
 		./env/srcs/private/IOStream.cpp			\
 		./env/srcs/private/Pool.cpp				\
 		./env/srcs/private/Mutex.cpp			\
 		./env/srcs/private/Thread.cpp			\
+		./env/srcs/private/Channel.cpp			\
 		./env/srcs/private/MultiThreading.cpp	\
 		./env/srcs/private/Vector3d.cpp			\
 		./env/srcs/private/Vector3d_op.cpp		\

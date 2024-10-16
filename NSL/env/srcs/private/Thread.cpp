@@ -6,8 +6,6 @@
 #include "../Thread.hpp"
 
 pthread_t	Thread_MainThreadID = pthread_self();
-std::map<String, void*> Thread::async_send = std::map<String, void*>();
-Mutex Thread::mutex_send = Mutex();
 
 Thread::~Thread()
 {

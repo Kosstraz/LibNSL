@@ -55,8 +55,10 @@
 // ?Equivalent à std::thread
 // INFO:
 // Please exit threads cleanly with Thread::Return(...), particularly if you need a return value
-// You can send information between threads or to the parent thread (Thread::Send() & .Receive<>()).
 # include "NSLsrcs/Thread.hpp"
+
+// ?You can send information between any threads [Channel::Send() & Channel::Receive<T>()]
+# include "NSLsrcs/Channel.hpp"
 
 // ?Equivalent à std::mutex (avec + de fonctionnalités)
 # include "NSLsrcs/Mutex.hpp"
@@ -74,7 +76,7 @@
 // Todo: .FindNotFirstOf()
 // Todo: .FindNotLastOf()
 // Todo: .Insert()  --> char & String
-# include "srcs/String.hpp"
+# include "NSLsrcs/String.hpp"
 
 // ?Maths namespace
 # include "NSLsrcs/Maths.hpp"

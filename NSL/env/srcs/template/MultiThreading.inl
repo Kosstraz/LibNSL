@@ -19,10 +19,9 @@ template <typename TRet>
 TRet
 MultiThreading::TryGet(const String& threadToWait)
 {
-	TRet	o;
-	try ((o = MultiThreading::threads.at(threadToWait).TryGet<TRet>()))
+	try
 	{
-		return (o);
+		return (MultiThreading::threads.at(threadToWait).TryGet<TRet>());
 	}
 	catch (Thread::IsStillAliveException&)
 	{

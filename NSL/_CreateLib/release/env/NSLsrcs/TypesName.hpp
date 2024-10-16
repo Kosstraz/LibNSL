@@ -1,5 +1,5 @@
-#ifndef TYPESNAME_HPP
-#define TYPESNAME_HPP
+#ifndef NSL_TYPESNAME_HPP
+#define NSL_TYPESNAME_HPP
 
 # include "String.hpp"
 

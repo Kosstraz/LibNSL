@@ -26,6 +26,8 @@ public:
 	static void	Create(const String& threadName, TRet (*)()) noexcept;
 	template <typename TRet>
 	static TRet	Get(const String& threadToGet) noexcept;
+	template <typename TRet>
+	static TRet	TryGet(const String& threadToGet);
 
 	using Thread::Wait;
 	static void	Wait(const String& threadToWait) noexcept ;

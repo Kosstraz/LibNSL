@@ -61,24 +61,6 @@ public:
 	bool	IsAlive();
 	void	TryStop();
 
-	// Receive a message from Thread::Send()
-	template <typename TRet>
-	FORCEINLINE static TRet	Receive(const String&& messageID)
-	{
-		Thread::mutex_send.Lock();
-		while (!Thread::async_send.contains(messageID))
-		{
-			Thread::mutex_send.Unlock();
-			Thread::mutex_send.Lock();
-		}
-		TRet*	ptr = static_cast<TRet*>(Thread::async_send.at(messageID));
-		TRet	ret = *ptr;
-		delete(ptr);//::operator delete(ptr);
-		Thread::async_send.erase(messageID);
-		Thread::mutex_send.Unlock();
-		return (ret);
-	}
-
 	// Check if Thread can get return value, if not, throw an exception
 	template <typename TRet>
 	FORCEINLINE TRet	TryGet()
@@ -133,25 +115,9 @@ public:
 		pthread_exit(ret);
 	}
 
-	// FRANCAIS :
-	// Toujours utiliser des ID différents, sinon cela pourrait provoquer des comportements indéfinis, tels que des segfault.
-	// Quand un message est receptioné avec Receive(), l'ID est libéré et réutilisable.
-	//
-	// ENGLISH :
-	// Always use different IDs, otherwise it may cause undefined behavior, such as segfault.
-	// When a message is received with Thread::Receive(), the ID is released and can be reused.
-	template <typename TRet>
-	FORCEINLINE static void	Send(const String& messageID, const TRet& arg_to_send)
-	{
-		TRet*	argptr = new TRet;//static_cast<TRet*>(::operator new(sizeof(TRet)));
-		*argptr = arg_to_send;
-		Thread::mutex_send.Lock();
-		Thread::async_send.insert(std::make_pair<const String&, void*>(messageID, argptr));
-		Thread::mutex_send.Unlock();
-	}
-
 	class IsStillAliveException
 	{
+	public:
 		const char* what() const noexcept;
 	};
 
@@ -176,9 +142,6 @@ private:
 	void	constructor_methods(TRet (TObject::*&)(TFunArgs ...), TObject* obj, TArgs ...args);
 
 private:
-	static std::map<String, void*>
-							async_send;
-	static Mutex			mutex_send;
 	bool					joined;
 	pthread_t				thread;
 	WrapperHelper*			wrapperHelper = nullptr;

@@ -1,5 +1,5 @@
-#ifndef PAIR_HPP
-#define PAIR_HPP
+#ifndef NSL_PAIR_HPP
+#define NSL_PAIR_HPP
 
 # include "../NSLplatform.h"
 # include "TypesCap.hpp"

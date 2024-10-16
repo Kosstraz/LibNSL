@@ -55,8 +55,10 @@
 // ?Equivalent à std::thread
 // INFO:
 // Please exit threads cleanly with Thread::Return(...), particularly if you need a return value
-// You can send information between threads or to the parent thread (Thread::Send() & .Receive<>()).
 # include "srcs/Thread.hpp"
+
+// ?You can send information between any threads [Channel::Send() & Channel::Receive<T>()]
+# include "srcs/Channel.hpp"
 
 // ?Equivalent à std::mutex (avec + de fonctionnalités)
 # include "srcs/Mutex.hpp"

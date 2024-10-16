@@ -9,9 +9,9 @@ float	ThreadTesting(String parameter /* can put infinite parameters */)
 	/* ... */
 	parameter.Join("EZ");
 	std::cout << "parameter: " << parameter << std::endl;
-	Thread::Send("randomized", parameter);
+	Channel::Send("randomized", parameter);
 	/* ... */
-	check = Thread::Receive<bool>("goodSendingOK?");
+	check = Channel::Receive<bool>("goodSendingOK?");
 	std::cout << "check: " << check << std::endl;
 	/* ... */
 	Thread::Return(42.42f);
@@ -23,7 +23,7 @@ int	main(void)
 	MultiThreading::Create("test1", ThreadTesting, String("norage"));
 	std::cout << "MT IsAlive ? " << (MultiThreading::IsAlive("test1") ? "yes" : "no") << std::endl;
 	std::cout << "MT IsExist ? " << (MultiThreading::IsExist("test1") ? "yes" : "no") << std::endl;
-	Thread::Send("goodSendingOK?", true);
+	Channel::Send("goodSendingOK?", true);
 	MultiThreading::Wait("test1");
 	std::cout << "MT IsAlive ? " << (MultiThreading::IsAlive("test1") ? "yes" : "no") << std::endl;
 	std::cout << "MT IsExist ? " << (MultiThreading::IsExist("test1") ? "yes" : "no") << std::endl;
@@ -31,12 +31,12 @@ int	main(void)
 	std::cout << "\n\n------------------\n\n";
 
 	Thread	myThread(ThreadTesting, "Bonjour, je suis Jean Guy ;) !!!");
-	String	checkIfAllGood = myThread.Receive<String>("randomized");
+	String	checkIfAllGood = Channel::Receive<String>("randomized");
 	std::cout << "Received !\n";
 	if (checkIfAllGood.Data() != nullptr)
-		Thread::Send("goodSendingOK?", true);
+		Channel::Send("goodSendingOK?", true);
 	else
-		Thread::Send("goodSendingOK?", false);
+		Channel::Send("goodSendingOK?", false);
 	std::cout << "Thread is alive ? " << (myThread.IsAlive() ? "yes" : "no") << std::endl;
 	float retValue = myThread.Get<float>();
 	std::cout << "retValue: " << retValue << std::endl;/**/

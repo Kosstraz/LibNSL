@@ -15,6 +15,20 @@ MultiThreading::Get(const String& threadToWait) noexcept
 	return (MultiThreading::threads.at(threadToWait).Get<TRet>());
 }
 
+template <typename TRet>
+TRet
+MultiThreading::TryGet(const String& threadToWait)
+{
+	try
+	{
+		return (MultiThreading::threads.at(threadToWait).TryGet<TRet>());
+	}
+	catch (Thread::IsStillAliveException&)
+	{
+		throw (Thread::IsStillAliveException());
+	}
+}
+
 template <typename TRet, typename TObject, typename... TArgs>
 void
 Create(const String& threadName, TRet (TObject::*memFun)(TArgs...), TObject* objInstance, TArgs... args) noexcept
