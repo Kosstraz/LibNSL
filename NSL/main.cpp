@@ -20,6 +20,16 @@ float	ThreadTesting(String parameter /* can put infinite parameters */)
 
 int	main(void)
 {
+	MultiThreading::Create("test1", ThreadTesting, String("norage"));
+	std::cout << "MT IsAlive ? " << (MultiThreading::IsAlive("test1") ? "yes" : "no") << std::endl;
+	std::cout << "MT IsExist ? " << (MultiThreading::IsExist("test1") ? "yes" : "no") << std::endl;
+	Thread::Send("goodSendingOK?", true);
+	MultiThreading::Wait("test1");
+	std::cout << "MT IsAlive ? " << (MultiThreading::IsAlive("test1") ? "yes" : "no") << std::endl;
+	std::cout << "MT IsExist ? " << (MultiThreading::IsExist("test1") ? "yes" : "no") << std::endl;
+
+	std::cout << "\n\n------------------\n\n";
+
 	Thread	myThread(ThreadTesting, "Bonjour, je suis Jean Guy ;) !!!");
 	String	checkIfAllGood = myThread.Receive<String>("randomized");
 	std::cout << "Received !\n";
@@ -27,7 +37,9 @@ int	main(void)
 		Thread::Send("goodSendingOK?", true);
 	else
 		Thread::Send("goodSendingOK?", false);
+	std::cout << "Thread is alive ? " << (myThread.IsAlive() ? "yes" : "no") << std::endl;
 	float retValue = myThread.Get<float>();
 	std::cout << "retValue: " << retValue << std::endl;/**/
+	std::cout << "Thread is alive ? " << (myThread.IsAlive() ? "yes" : "no") << std::endl;
 	return (0);
 }
