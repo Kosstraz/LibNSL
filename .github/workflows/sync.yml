@@ -19,7 +19,7 @@ jobs:
 
     - name: Push to secondary repository
       env:
-        SECOND_REPO_PAT: ${{ secrets.LIBNSL_YMANCHON_REPO }}
+        SECOND_REPO_PAT: ${{ secrets.YMANCHON_LIBNSL_REPO }}
       run: |
-        git remote add second-repo https://ymanchon:${LIBNSL_YMANCHON_REPO}@github.com/ymanchon/LibNSL.git
+        git remote add second-repo https://ymanchon:${YMANCHON_LIBNSL_REPO}@github.com/ymanchon/LibNSL.git
         git push second-repo main --force
