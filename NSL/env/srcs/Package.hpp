@@ -6,6 +6,8 @@
 #ifndef NSL_PACKAGE_HPP
 #define NSL_PACKAGE_HPP
 
+// Package class encapsulates any many args
+// Can be unpack with the Unpack/NSUnpack class
 template <typename T, typename ... TArgs>
 class Package
 {
@@ -24,6 +26,8 @@ public:
 	inline static constexpr bool	last = false;
 };
 
+// Package class encapsulates any many args
+// Can be unpack with the Unpack/NSUnpack class
 template <typename T>
 class Package<T>
 {

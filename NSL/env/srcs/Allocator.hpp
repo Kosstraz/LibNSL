@@ -25,29 +25,31 @@
 # include "../NSLplatform.h"
 
 # ifdef ALLOCATORT_NAMES
-#  define ALLOC_		allocate
-#  define DEALLOC_		deallocate
+#  define ALLOC_		Allocate
+#  define DEALLOC_		Deallocate
 
-# define ALLOC_HOT		hot_allocate
-# define DEALLOC_HOT	hot_deallocate
+# define ALLOC_HOT		HotAllocate
+# define DEALLOC_HOT	HotDeallocate
 # else
-#  define ALLOC_		reserve
-#  define DEALLOC_		free
+#  define ALLOC_		Reserve
+#  define DEALLOC_		Free
 
-# define ALLOC_HOT		hot_reserve
-# define DEALLOC_HOT	hot_free
+# define ALLOC_HOT		HotReserve
+# define DEALLOC_HOT	HotFree
 # endif
 
-// Difference between hot_reserve/hot_free & reserve/free is minimal
+// Difference between HotReserve/HotFree & Reserve/Free is minimal
 // Check execution time and see if there is a big change
+//
+// You can define ALLOCATORT_NAMES if you prefere member methods with another names (Allocate/Deallocate instead of Reserve/Free)
 template <typename T>
 class Allocator final
 {
 public:
-	Allocator() = delete;
-	Allocator(const Allocator&) = delete;
-	Allocator(Allocator&&) = delete;
-	virtual ~Allocator() = default;
+	Allocator()					= delete;
+	Allocator(const Allocator&)	= delete;
+	Allocator(Allocator&&)		= delete;
+	virtual ~Allocator()		= default;
 
 	/*******************/
 	/*	CONSTRUCTIONS  */
@@ -55,21 +57,21 @@ public:
 
 public:
 	[[nodiscard]]
-	FORCEINLINE static constexpr T*	construct(unsigned int&& tabSize)		MALLOC_ATTR;
+	FORCEINLINE static constexpr T*	Construct(unsigned int&& tabSize)		MALLOC_ATTR;
 	[[nodiscard]]
-	FORCEINLINE static constexpr T*	construct(const unsigned int& tabSize)	MALLOC_ATTR;
+	FORCEINLINE static constexpr T*	Construct(const unsigned int& tabSize)	MALLOC_ATTR;
 
-	FORCEINLINE static constexpr void	deconstruct(T* __restrict ptr);
+	FORCEINLINE static constexpr void	Deconstruct(T* __restrict ptr);
 
 public:
 # if __cpp_aligned_new
 	[[nodiscard]]
-	FORCEINLINE static constexpr T*	construct_align(unsigned int&& tabSize)			MALLOC_ATTR;
+	FORCEINLINE static constexpr T*	ConstructAlign(unsigned int&& tabSize)			MALLOC_ATTR;
 	[[nodiscard]]
-	FORCEINLINE static constexpr T*	construct_align(const unsigned int& tabSize)	MALLOC_ATTR;
+	FORCEINLINE static constexpr T*	ConstructAlign(const unsigned int& tabSize)	MALLOC_ATTR;
 
-	FORCEINLINE static constexpr void	deconstruct_align(T* __restrict ptr, const unsigned int& tabSize);
-	FORCEINLINE static constexpr void	deconstruct_align(T* __restrict ptr, unsigned int&& tabSize);
+	FORCEINLINE static constexpr void	DeconstructAlign(T* __restrict ptr, const unsigned int& tabSize);
+	FORCEINLINE static constexpr void	DeconstructAlign(T* __restrict ptr, unsigned int&& tabSize);
 #endif
 
 
@@ -88,12 +90,12 @@ public:
 public:
 # if __cpp_aligned_new
 	[[nodiscard]]
-	FORCEINLINE static constexpr T*	ALLOC_(unsigned int&& tabSize, const unsigned long& numberOfObjectsAlignedInMemory)			MALLOC_ATTR;
+	FORCEINLINE static constexpr T*	ALLOC_(unsigned int&& size, const unsigned long& nByteAligned)			MALLOC_ATTR;
 	[[nodiscard]]
-	FORCEINLINE static constexpr T*	ALLOC_(const unsigned int& tabSize, const unsigned long& numberOfObjectsAlignedInMemory)	MALLOC_ATTR;
+	FORCEINLINE static constexpr T*	ALLOC_(const unsigned int& size, const unsigned long& nByteAligned)	MALLOC_ATTR;
 
-	FORCEINLINE static constexpr void	DEALLOC_(T* __restrict ptr, const unsigned long&& numberOfObjectsAlignedInMemory);
-	FORCEINLINE static constexpr void	DEALLOC_(T* __restrict ptr, const unsigned long& numberOfObjectsAlignedInMemory);
+	FORCEINLINE static constexpr void	DEALLOC_(T* __restrict ptr, const unsigned long&& nByteAligned);
+	FORCEINLINE static constexpr void	DEALLOC_(T* __restrict ptr, const unsigned long& nByteAligned);
 #endif
 
 	/*********************/

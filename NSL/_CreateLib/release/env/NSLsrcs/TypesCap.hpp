@@ -357,6 +357,9 @@ using RawType = RemoveConst<
 /*	TYPES	*/
 /************/
 
+// Capabilities of types
+//
+// Everything is calculated at compile time
 namespace Types
 {
 

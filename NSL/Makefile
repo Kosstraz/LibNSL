@@ -27,6 +27,10 @@ SRCS =	./env/NSLSIMDplatform.cpp				\
 		./env/srcs/private/IOStream.cpp			\
 		./env/srcs/private/Pool.cpp				\
 		./env/srcs/private/Mutex.cpp			\
+		./env/srcs/private/MutexStrict.cpp		\
+		./env/srcs/private/Barrier.cpp			\
+		./env/srcs/private/ManagedBarrier.cpp	\
+		./env/srcs/private/Async.cpp			\
 		./env/srcs/private/Thread.cpp			\
 		./env/srcs/private/Channel.cpp			\
 		./env/srcs/private/MultiThreading.cpp	\

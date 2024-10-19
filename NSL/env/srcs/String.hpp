@@ -10,9 +10,12 @@
 #  define MALLOC_ATTR __attribute__((malloc))
 # endif
 
-# include "Memory.hpp"
+# define STRING_PREALLOC_SIZE	100ULL
+
+# include "Meta.hpp"
 # include "../NSLSIMDplatform.h"
 # include "../NSLplatform.h"
+# include "Allocator.hpp"
 # include <string> // just for the conversion between String AND std::string
 
 class String final
@@ -37,23 +40,25 @@ public:
 	constexpr bool	IsNByteEqualWith(const char* data, unsigned int n)	const;
 	constexpr bool	IsNByteEqualWith(const String& str, unsigned int n)	const;
 
+	FORCEINLINE void	Reserve(const uint64& nbyte)	noexcept;
+
 	// Equivalent to .Overwrite()
-	inline void	Replace(const char* data)		noexcept;
+	FORCEINLINE void	Replace(const char* data)		noexcept;
 		// Equivalent to .Overwrite()
-	inline void	Replace(const String& str)		noexcept;
+	FORCEINLINE void	Replace(const String& str)		noexcept;
 	// Equivalent to .Replace()
-	inline void	Overwrite(const char*  data)	noexcept;
+	FORCEINLINE void	Overwrite(const char*  data)	noexcept;
 	// Equivalent to .Replace()
-	inline void	Overwrite(const String& str)	noexcept;
+	FORCEINLINE void	Overwrite(const String& str)	noexcept;
 
 	// Equivalent to .Join()
-	inline void	Append(const char* data)	noexcept;
+	FORCEINLINE void	Append(const char* data)	noexcept;
 	// Equivalent to .Join()
-	inline void	Append(const String& str)	noexcept;
+	FORCEINLINE void	Append(const String& str)	noexcept;
 	// Equivalent to .Append()
-	inline void	Join(const char* data)		noexcept;
+	FORCEINLINE void	Join(const char* data)		noexcept;
 	// Equivalent to .Append()
-	inline void	Join(const String& str)		noexcept;
+	FORCEINLINE void	Join(const String& str)		noexcept;
 
 	// Return -1 if the string is null
 	// Calcul the length for each call (use Size() instead)
@@ -62,7 +67,7 @@ public:
 	// Return -1 if the string is null
 	// Like Len(), but Size() doesn't recalculate the length if it has already been calculated
 	[[nodiscard]]
-	inline uint64	Size() noexcept;
+	inline uint64	Size() const noexcept;
 
 	// Return -1 if the string is null
 	// Calcul the length for each call (use Size() instead)
@@ -72,6 +77,9 @@ public:
 	// Like Len(), but Size() doesn't recalculate the length if it has already been calculated
 	[[nodiscard]]
 	static inline uint64	Size(String& str) noexcept;
+
+	[[nodiscard]]
+	static inline uint64	Size(const char* cstr) noexcept;
 
 
 	// (static) Return a new allocated string equal to the string.Data() in parameter
@@ -85,25 +93,38 @@ public:
 
 	inline void				Swap(String&)		  noexcept;
 	inline void				Shuffle()			  noexcept;
-	inline void				Erase(int idex)		  noexcept;
+	inline void				Erase(const int& idex)		  noexcept;
 	inline bool				Empty()			const;
 	constexpr const char*	Data()			const noexcept;
 	constexpr const char&	At(int index)	const noexcept;
 	inline const char&		First()			const noexcept;
 	inline const char&		Last()			const noexcept;
 	// Equivalent to .Destroy()
-	constexpr void			Clear()				  noexcept;
+	inline void			Clear()				  noexcept;
 	// Equivalent to .Clear()
-	constexpr void			Destroy()		 	  noexcept;
+	inline void			Destroy()		 	  noexcept;
 
 private:
-	constexpr void	_setSize_(uint64 newSize)		noexcept;
+	FORCEINLINE void
+	_setSize_(uint64 newSize)		noexcept;
 
-	void	__join__(const String& str)		noexcept;
-	void	__replace__(const String& str)	noexcept;
-	uint64	__length__()			  const noexcept;
+	FORCEINLINE void
+	__join__(const String& str)		noexcept;
 
-	static uint64	__length__(const String& str)	noexcept;
+	FORCEINLINE void
+	__replace__(const String& str)	noexcept;
+
+	FORCEINLINE uint64
+	__length__()			  const noexcept;
+
+	FORCEINLINE static uint64
+	__length__(const String& str)					noexcept;
+
+	FORCEINLINE static uint64
+	__length__(const char* cstr)					noexcept;
+
+	FORCEINLINE static void
+	__ncopy__ (char* dest, const char* src, const uint64 nbyte)	noexcept;
 
 public:
 	constexpr const char&	operator[](int index)	const noexcept;
@@ -127,8 +148,8 @@ public:
 private:
 	char*	data;
 	uint64	size;
+	uint64	capacity;
 	bool	allocated;
-	bool	size_calculated;
 };
 
 # include "template/String.inl"

@@ -88,9 +88,10 @@ String		String::operator+(const String& str) const noexcept
 
 String		String::operator*(const unsigned int& count) const noexcept
 {
+	//if (count == 0) [[unlikely]] //Todo: gérer ce cas
 	String	ret(*this);
 	String	toMultiply(ret);
-	for (unsigned int i = 1 ; i < count ; i++)
+	for (unsigned int i = 1U ; i < count ; i++)
 		ret.Join(toMultiply);
 	return (ret);
 }
@@ -111,7 +112,6 @@ String&		String::operator=(const String& str) noexcept
 		this->data = String::CString(str);
 		this->allocated = true;
 		this->size = str.size;
-		this->size_calculated = str.size_calculated;
 	}
 	return (*this);
 }
@@ -124,7 +124,10 @@ String&		String::operator+=(const String& str) noexcept
 
 String&		String::operator*=(const unsigned int& count) noexcept
 {
-	*this = *this * count;
+	//if (count == 0) [[unlikely]] //Todo: gérer ce cas
+	String	toMultiply(*this);
+	for (unsigned int i = 1U ; i < count ; i++)
+		this->Join(toMultiply);
 	return (*this);
 }
 #pragma endregion

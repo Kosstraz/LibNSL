@@ -4,7 +4,6 @@
 # include "../NSLplatform.h"
 # include "TypesCap.hpp"
 
-# include <iostream>
 template <typename T1, typename T2>
 struct Pair
 {
@@ -21,7 +20,7 @@ public:
 	{
 	}
 
-	constexpr	Pair(T1&& a, T2&& b) noexcept : key(Memory::Forward<T1>(a)), val(Memory::Forward<T2>(b))
+	constexpr	Pair(T1&& a, T2&& b) noexcept : key(Meta::Forward<T1>(a)), val(Meta::Forward<T2>(b))
 	{
 	}
 

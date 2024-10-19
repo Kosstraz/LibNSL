@@ -10,13 +10,14 @@
 # include "String.hpp"
 # include <map>
 
+// It's a simpler way to create thread and manage them.
 class MultiThreading final : private Thread
 {
 public:
-	MultiThreading(const MultiThreading&) 	= delete;
-	MultiThreading(MultiThreading&&) 		= delete;
-	MultiThreading()						= delete;
-	virtual ~MultiThreading();
+	explicit MultiThreading(const MultiThreading&) 	= delete;
+	explicit MultiThreading(MultiThreading&&) 		= delete;
+	explicit MultiThreading()						= delete;
+	virtual ~MultiThreading()						= delete;
 
 	template <typename TRet, typename TObject, typename... TArgs>
 	static void	Create(const String& threadName, TRet (TObject::*)(TArgs...), TObject* objInstance, TArgs... args) noexcept;

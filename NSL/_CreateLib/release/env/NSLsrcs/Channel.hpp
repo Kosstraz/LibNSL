@@ -10,6 +10,7 @@
 # include "String.hpp"
 # include <map>
 
+// You can safely send data between any threads
 class Channel final
 {
 public:

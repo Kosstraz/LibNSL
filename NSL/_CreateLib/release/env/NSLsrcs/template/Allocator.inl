@@ -15,21 +15,21 @@
 
 template <typename T>
 constexpr T*
-Allocator<T>::construct(unsigned int&& n)
+Allocator<T>::Construct(unsigned int&& n)
 {
 	return (new T[n]);
 }
 
 template <typename T>
 constexpr T*
-Allocator<T>::construct(const unsigned int& n)
+Allocator<T>::Construct(const unsigned int& n)
 {
 	return (new T[n]);
 }
 
 template <typename T>
 constexpr void
-Allocator<T>::deconstruct(T* ptr)
+Allocator<T>::Deconstruct(T* ptr)
 {
 	delete[] ptr;
 }
@@ -38,7 +38,7 @@ Allocator<T>::deconstruct(T* ptr)
 # if __cpp_aligned_new
 template <typename T>
 constexpr T*
-Allocator<T>::construct_align(unsigned int&& n)
+Allocator<T>::ConstructAlign(unsigned int&& n)
 {
 	T*	ret;
 
@@ -53,7 +53,7 @@ Allocator<T>::construct_align(unsigned int&& n)
 
 template <typename T>
 constexpr T*
-Allocator<T>::construct_align(const unsigned int& n)
+Allocator<T>::ConstructAlign(const unsigned int& n)
 {
 	T*	ret;
 
@@ -68,7 +68,7 @@ Allocator<T>::construct_align(const unsigned int& n)
 
 template <typename T>
 constexpr void
-Allocator<T>::deconstruct_align(T* __restrict ptr, const unsigned int& tabSize)
+Allocator<T>::DeconstructAlign(T* __restrict ptr, const unsigned int& tabSize)
 {
 	for (int i = 0 ; i < tabSize ; i++)
 		ptr[i].~T();
@@ -77,7 +77,7 @@ Allocator<T>::deconstruct_align(T* __restrict ptr, const unsigned int& tabSize)
 
 template <typename T>
 constexpr void
-Allocator<T>::deconstruct_align(T* __restrict ptr, unsigned int&& tabSize)
+Allocator<T>::DeconstructAlign(T* __restrict ptr, unsigned int&& tabSize)
 {
 	for (int i = 0 ; i < tabSize ; i++)
 		ptr[i].~T();
@@ -107,7 +107,7 @@ template <typename T>
 constexpr void
 Allocator<T>::DEALLOC_(T* ptr)
 {
-	::operator delete[](ptr);
+	_mm_free(ptr);//::operator delete[](ptr);
 }
 
 
@@ -116,26 +116,28 @@ template <typename T>
 constexpr T*
 Allocator<T>::ALLOC_(unsigned int&& n, const unsigned long& align)
 {
-	unsigned long	alignSize 	= align;
-	if (alignSize >= __BIGGEST_ALIGNMENT__)
-		alignSize = static_cast<unsigned long>(__BIGGEST_ALIGNMENT__);
-	else if (alignSize == 0)
-		alignSize = static_cast<unsigned long>(1);
-	return (static_cast<T*>(::operator new[](static_cast<__uint128_t>(sizeof(T)) * static_cast<__uint128_t>(n),
-			std::align_val_t{alignSize * sizeof(T)})));
+	//unsigned long	alignSize 	= align;
+	//if (alignSize >= __BIGGEST_ALIGNMENT__)
+	//	alignSize = static_cast<unsigned long>(__BIGGEST_ALIGNMENT__);
+	//else if (alignSize == 0)
+	//	alignSize = static_cast<unsigned long>(1);
+	//return (static_cast<T*>(::operator new[](static_cast<__uint128_t>(sizeof(T)) * static_cast<__uint128_t>(n),
+	//		std::align_val_t{alignSize * sizeof(T)})));
+	return (static_cast<T*>(_mm_malloc(n, align)));
 }
 
 template <typename T>
 constexpr T*
 Allocator<T>::ALLOC_(const unsigned int& n, const unsigned long& align)
 {
-	unsigned long	alignSize 	= align;
-	if (alignSize >=  __BIGGEST_ALIGNMENT__)
-		alignSize = static_cast<unsigned long>(__BIGGEST_ALIGNMENT__);
-	else if (alignSize == 0)
-		alignSize = static_cast<unsigned long>(1);
-	return (static_cast<T*>(::operator new[](static_cast<__uint128_t>(sizeof(T)) * static_cast<__uint128_t>(n),
-			std::align_val_t{alignSize * sizeof(T)})));
+	//unsigned long	alignSize 	= align;
+	//if (alignSize >=  __BIGGEST_ALIGNMENT__)
+	//	alignSize = static_cast<unsigned long>(__BIGGEST_ALIGNMENT__);
+	//else if (alignSize == 0)
+	//	alignSize = static_cast<unsigned long>(1);
+	//return (static_cast<T*>(::operator new[](static_cast<__uint128_t>(sizeof(T)) * static_cast<__uint128_t>(n),
+	//		std::align_val_t{alignSize * sizeof(T)})));
+	return (static_cast<T*>(_mm_malloc(n, align)));
 }
 
 template <typename T>

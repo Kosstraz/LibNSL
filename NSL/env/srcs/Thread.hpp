@@ -18,6 +18,10 @@
 
 extern pthread_t	Thread_MainThreadID;
 
+// A well threading system
+//
+// INFO:
+// Please exit threads cleanly with Thread::Return(...), particularly if you need a return value
 class Thread
 {
 private:
@@ -104,7 +108,7 @@ public:
 	//
 	// ENGLISH :
 	// Allows you to exit a thread, but if the function is called natively AND in the MainThread, you'll need to place a 'return (...);' just after it, so that the function exits as expected, as this function (Thread::Return) will be ignored.
-	// If it is called natively in a thread that is not the main thread, the thread will be exited entirely.
+	// If it is called natively in a thread that is not the main thread, the thread will be exited entirely
 	template <typename TRet>
 	FORCEINLINE static TRet	Return(TRet return_arg)
 	{
@@ -113,6 +117,7 @@ public:
 		TRet*	ret = new TRet;//static_cast<TRet*>(::operator new(sizeof(TRet)));
 		*ret = return_arg;
 		pthread_exit(ret);
+		CODE_UNREACHABLE;
 	}
 
 	class IsStillAliveException
@@ -120,6 +125,8 @@ public:
 	public:
 		const char* what() const noexcept;
 	};
+
+	class Async;
 
 private:
 	template <typename TObject, typename TRet, typename TFun, typename ... TArgs>

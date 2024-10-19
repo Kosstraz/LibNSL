@@ -12,7 +12,10 @@
 # include <deque>
 # include <iostream>
 
-class Pool final
+// Constitutes a sort of heap of objects, of variable types, allocated
+//
+// Deprecated at the moment
+class /*[[deprecated]]*/ Pool final
 {
 public:
 	Pool();

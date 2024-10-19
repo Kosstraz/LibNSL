@@ -6,29 +6,32 @@
 #ifndef NSLPLATFORM_H
 #define NSLPLATFORM_H
 
-#if defined(__clang__) || defined(__GNUC__)  || defined(__GNUG__)
-# define GNU_COMPILER
-#endif
+# if defined(__clang__) || defined(__GNUC__)  || defined(__GNUG__)
+#  define GNU_COMPILER
+# endif
 
 	// FORCE INLINING
-#if defined(GNU_COMPILER)
-# define FORCEINLINE		inline __attribute__((always_inline))
-# define FUNCTION_DETAILS	__PRETTY_FUNCTION__
-# define FUNCTION_NAME		__func__
-#elif defined(_MSC_VER)
-# define FORCEINLINE		__forceinline
-# define FUNCTION_NAME		__func__
-#else
-# define FORCEINLINE		inline
-# define FUNCTION_NAME		__func__
-#endif
+# if defined(GNU_COMPILER)
+#  define FORCEINLINE		inline __attribute__((always_inline))
+#  define FUNCTION_DETAILS	__PRETTY_FUNCTION__
+#  define FUNCTION_NAME		__func__
+#  define CODE_UNREACHABLE	__builtin_unreachable()
+# elif defined(_MSC_VER)
+#  define FORCEINLINE		__forceinline
+#  define FUNCTION_NAME		__func__
+#  define CODE_UNREACHABLE	__assume(0)
+# else
+#  define FORCEINLINE		inline
+#  define FUNCTION_NAME		__func__
+#  define CODE_UNREACHABLE
+# endif
 
 	// FUNCTION RETURNING A MEMORY ALLOCATED BLOC
-#if defined(GNU_COMPILER)
-# define MALLOC_ATTR __attribute__((malloc))
-#else
-# define MALLOC_ATTR
-#endif
+# if defined(GNU_COMPILER)
+#  define MALLOC_ATTR __attribute__((malloc))
+# else
+#  define MALLOC_ATTR
+# endif
 
 # include <assert.h>
 
@@ -53,5 +56,11 @@ typedef unsigned long long	uint64;
 
 typedef float				float32;
 typedef double				float64;
+
+typedef unsigned char		uchar;
+typedef unsigned short		ushort;
+typedef unsigned int		uint;
+
+typedef long long			llong;
 
 #endif

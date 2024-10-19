@@ -9,6 +9,11 @@
 # include "TypesCap.hpp"
 # include "IOStreams.hpp"
 
+// Allows heavy mathematical calculations to be performed during compilation
+// Float & double calculations is not supported
+namespace CMaths
+{
+
 typedef unsigned long long	cm_int64;
 
 // Divide only ints
@@ -80,5 +85,7 @@ struct FactorialStruct<0ULL>
 
 template <cm_int64 N>
 inline constexpr cm_int64	FactorialOf = FactorialStruct<N>::value;
+
+}
 
 #endif

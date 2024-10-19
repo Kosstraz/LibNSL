@@ -12,62 +12,64 @@
 // !Two memory leaks in threading edge case (in the Thread class)
 // !If not, no memory leak currently detected
 
-// ?Similaire à std::allocator
+// ?Memory
 # include "srcs/Allocator.hpp"
 
-// ?A smart pointer, similar to std::shared_ptr<T>
-# include "srcs/SmartPtr.hpp"
-
-// ?Type capabilities (everything is calculated at compile time)
-// Upcoming additions
+// ?Types capabilities
 # include "srcs/TypesCap.hpp"
 
-// ?Allows to know the precise type
-// ?Less precise on compilers other than GNU (GCC/clang/...)
+// ?Types capabilities
 # include "srcs/TypesName.hpp"
 
-// ?Equivalent à std::is_base_of_v
+// ?Types capabilities
 # include "srcs/IsSubclassOf.hpp"
 
-// ?Similaire à std::is_convertible_v
+// ?Types capabilities
 # include "srcs/IsConvertible.hpp"
 
 // ?Constitutes a sort of heap of objects, of variable types, allocated
-// To optimize
+// Todo: Reforge all (and optimize)
 # include "srcs/Pool.hpp"
 
-// ?Equivalent à std::cout/cin (version nulle)
-// To optimize (a lot)
+// ?An in/out class
+// Todo: optimize (a lot)
 # include "srcs/IOStreams.hpp"
 
 // ?Allows heavy mathematical calculations to be performed during compilation
 # include "srcs/CompilationMaths.hpp"
 
-// ?Equivalent à std::function
+// ?Utility
+# include "srcs/SmartPtr.hpp"
+
+// ?Utility
 # include "srcs/Function.hpp"
 
-// ?Packing a variadic argument | équivalent to std::tuple
+// ?Utility
 # include "srcs/Package.hpp"
 
-// ?Allows you to unpack a Package<...> and apply it to a given function
+// ?Utility
 # include "srcs/Unpack.hpp"
 
-// ?Equivalent à std::thread
-// INFO:
-// Please exit threads cleanly with Thread::Return(...), particularly if you need a return value
+// ?Utility
+# include "srcs/Meta.hpp"
+
+// ?A well threading system
 # include "srcs/Thread.hpp"
 
-// ?You can send information between any threads [Channel::Send() & Channel::Receive<T>()]
+// ?For threading & multithreading
 # include "srcs/Channel.hpp"
 
-// ?Equivalent à std::mutex (avec + de fonctionnalités)
+// ?For multithreading
+# include "srcs/Barrier.hpp"
+
+// ?For threading and multithreading
+# include "srcs/Async.hpp"
+
+// ?For threading & multithreading
 # include "srcs/Mutex.hpp"
 
-// ?Enables secure multithreading and easy access to threads via their identifier
+// ?Allows secure multithreading and easy access to threads via their identifier ID
 # include "srcs/MultiThreading.hpp"
-
-// ?Some utilities
-# include "srcs/Memory.hpp"
 
 // ?Equivalent à std::string (en beaucoup + performant & avec + de fonctionnalités)
 // Todo: .Find()

@@ -62,6 +62,8 @@ namespace Types
 		return (ret);
 	}
 
+	// Allows to know the precise type
+	// Less precise on compilers other than GNU (GCC/clang/...)
 	template <typename T>
 	constexpr String	Name()
 	{
@@ -72,6 +74,8 @@ namespace Types
 		return (ret);
 	}
 # else
+	// Allows to know the precise type
+	// Less precise on compilers other than GNU (GCC/clang/...)
 	template <typename T>
 	constexpr String	Name()
 	{

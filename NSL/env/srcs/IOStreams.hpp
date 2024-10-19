@@ -13,7 +13,9 @@
 
 namespace IO
 {
-class Streams
+
+// Deprecated at the moment
+class /*[[deprecated]]*/ Streams
 {
 public:
 	Streams()							noexcept;

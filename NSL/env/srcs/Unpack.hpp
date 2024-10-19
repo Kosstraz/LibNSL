@@ -6,14 +6,15 @@
 #ifndef NSL_UNPACK_HPP
 #define NSL_UNPACK_HPP
 
-# include "Memory.hpp"
+# include "Meta.hpp"
 
+// Put a function 'fun' and a Package<...> of many any args, and the Unpack class will depack your args in Package<...> and put them in the function 'fun'
 template <typename TFun, typename ... TPack>
 struct	Unpack
 {
 	Unpack(TFun fun, TPack ...args)
 	{
-		fun(Memory::Move(args)...);
+		fun(Meta::Move(args)...);
 	}
 
 	template <typename ... TArgs>
@@ -38,13 +39,13 @@ struct	Unpack
 	}
 };
 
-// For non-static method calls
+// NSUnpack, unlike Unpack, handles pointer to a non-static member method.
 template <typename TFun, typename TObject, typename ... TPack>
 struct	NSUnpack
 {
 	NSUnpack(TFun fun, TObject* instance, TPack ...args)
 	{
-		(instance->*fun)(Memory::Move(args)...);
+		(instance->*fun)(Meta::Move(args)...);
 	}
 
 	template <typename ... TArgs>

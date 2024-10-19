@@ -69,20 +69,20 @@ MultiThreading::IsExist(const String& threadName) noexcept
 FORCEINLINE bool
 MultiThreading::IsAlive(String&& threadName) noexcept
 {
-	return (MultiThreading::__isAlive__(Memory::Move(threadName)));
+	return (MultiThreading::__isAlive__(Meta::Move(threadName)));
 }
 
 FORCEINLINE bool
 MultiThreading::IsExist(String&& threadName) noexcept
 {
-	return (MultiThreading::__isExist__(Memory::Move(threadName)));
+	return (MultiThreading::__isExist__(Meta::Move(threadName)));
 }
 
 FORCEINLINE bool
 MultiThreading::__isAlive__(String&& threadName) noexcept
 {
-	if (MultiThreading::threads.contains(Memory::Move(threadName)))
-		if (MultiThreading::threads.at(Memory::Move(threadName)).IsAlive())
+	if (MultiThreading::threads.contains(Meta::Move(threadName)))
+		if (MultiThreading::threads.at(Meta::Move(threadName)).IsAlive())
 			return (true);
 	return (false);
 }
@@ -90,8 +90,8 @@ MultiThreading::__isAlive__(String&& threadName) noexcept
 FORCEINLINE bool
 MultiThreading::__isAlive__(const String& threadName) noexcept
 {
-	if (MultiThreading::threads.contains(Memory::Move(threadName)))
-		if (MultiThreading::threads.at(Memory::Move(threadName)).IsAlive())
+	if (MultiThreading::threads.contains(Meta::Move(threadName)))
+		if (MultiThreading::threads.at(Meta::Move(threadName)).IsAlive())
 			return (true);
 	return (false);
 }
@@ -99,13 +99,13 @@ MultiThreading::__isAlive__(const String& threadName) noexcept
 FORCEINLINE bool
 MultiThreading::__isExist__(String&& threadName) noexcept
 {
-	return (MultiThreading::threads.contains(Memory::Move(threadName)));
+	return (MultiThreading::threads.contains(Meta::Move(threadName)));
 }
 
 FORCEINLINE bool
 MultiThreading::__isExist__(const String& threadName) noexcept
 {
-	return (MultiThreading::threads.contains(Memory::Move(threadName)));
+	return (MultiThreading::threads.contains(Meta::Move(threadName)));
 }
 
 #endif

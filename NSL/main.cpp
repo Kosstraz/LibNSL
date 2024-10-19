@@ -39,7 +39,7 @@ int	main(void)
 		Channel::Send("goodSendingOK?", false);
 	std::cout << "Thread is alive ? " << (myThread.IsAlive() ? "yes" : "no") << std::endl;
 	float retValue = myThread.Get<float>();
-	std::cout << "retValue: " << retValue << std::endl;/**/
-	std::cout << "Thread is alive ? " << (myThread.IsAlive() ? "yes" : "no") << std::endl;
+	std::cout << "retValue: " << retValue << std::endl;
+	std::cout << "Thread is alive ? " << (myThread.IsAlive() ? "yes" : "no") << std::endl;/**/
 	return (0);
 }

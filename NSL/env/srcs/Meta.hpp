@@ -3,12 +3,12 @@
  * Licensed under the MIT License.
 */
 
-#ifndef NSL_MEMORY_HPP
-#define NSL_MEMORY_HPP
+#ifndef NSL_META_HPP
+#define NSL_META_HPP
 
 # include "TypesCap.hpp"
 
-namespace Memory
+namespace Meta
 {
 
 template <typename T>
@@ -42,9 +42,9 @@ template <class T>
 requires Types::IsObject<T>
 inline constexpr void	Swap(T& a, T& b)
 {
-	T	temp = Memory::Move(a);
-	a = Memory::Move(b);
-	b = Memory::Move(temp);
+	T	temp = Meta::Move(a);
+	a = Meta::Move(b);
+	b = Meta::Move(temp);
 }
 
 }

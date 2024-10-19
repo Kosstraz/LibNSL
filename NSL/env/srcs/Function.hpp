@@ -6,10 +6,11 @@
 #ifndef NSL_FUNCTION_HPP
 #define NSL_FUNCTION_HPP
 
+// To store a function with any many arguments
 template <typename TRet, typename ... TArgs>
 class Function final
 {
-private:
+public:
 	typedef TRet (*FUNTYPE)(TArgs...);
 
 public:
@@ -37,10 +38,11 @@ public:
 	}
 };
 
+// To store a function without parameters
 template <typename TRet>
 class Function<TRet> final
 {
-	private:
+public:
 	typedef TRet (*FUNTYPE)();
 
 public:

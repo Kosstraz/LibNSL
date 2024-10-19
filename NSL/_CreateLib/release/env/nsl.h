@@ -12,62 +12,64 @@
 // !Two memory leaks in threading edge case (in the Thread class)
 // !If not, no memory leak currently detected
 
-// ?Similaire à std::allocator
+// ?Memory
 # include "NSLsrcs/Allocator.hpp"
 
-// ?A smart pointer, similar to std::shared_ptr<T>
-# include "NSLsrcs/SmartPtr.hpp"
-
-// ?Type capabilities (everything is calculated at compile time)
-// Upcoming additions
+// ?Types capabilities
 # include "NSLsrcs/TypesCap.hpp"
 
-// ?Allows to know the precise type
-// ?Less precise on compilers other than GNU (GCC/clang/...)
+// ?Types capabilities
 # include "NSLsrcs/TypesName.hpp"
 
-// ?Equivalent à std::is_base_of_v
+// ?Types capabilities
 # include "NSLsrcs/IsSubclassOf.hpp"
 
-// ?Similaire à std::is_convertible_v
+// ?Types capabilities
 # include "NSLsrcs/IsConvertible.hpp"
 
 // ?Constitutes a sort of heap of objects, of variable types, allocated
-// To optimize
+// Todo: Reforge all (and optimize)
 # include "NSLsrcs/Pool.hpp"
 
-// ?Equivalent à std::cout/cin (version nulle)
-// To optimize (a lot)
+// ?An in/out class
+// Todo: optimize (a lot)
 # include "NSLsrcs/IOStreams.hpp"
 
 // ?Allows heavy mathematical calculations to be performed during compilation
 # include "NSLsrcs/CompilationMaths.hpp"
 
-// ?Equivalent à std::function
+// ?Utility
+# include "NSLsrcs/SmartPtr.hpp"
+
+// ?Utility
 # include "NSLsrcs/Function.hpp"
 
-// ?Packing a variadic argument | équivalent to std::tuple
+// ?Utility
 # include "NSLsrcs/Package.hpp"
 
-// ?Allows you to unpack a Package<...> and apply it to a given function
+// ?Utility
 # include "NSLsrcs/Unpack.hpp"
 
-// ?Equivalent à std::thread
-// INFO:
-// Please exit threads cleanly with Thread::Return(...), particularly if you need a return value
+// ?Utility (the file and namespace name will be changed)
+# include "NSLsrcs/Meta.hpp"
+
+// ?A well threading system
 # include "NSLsrcs/Thread.hpp"
 
-// ?You can send information between any threads [Channel::Send() & Channel::Receive<T>()]
+// ?For threading & multithreading
 # include "NSLsrcs/Channel.hpp"
 
-// ?Equivalent à std::mutex (avec + de fonctionnalités)
+// ?For multithreading
+# include "NSLsrcs/Barrier.hpp"
+
+// ?For threading and multithreading
+# include "NSLsrcs/Async.hpp"
+
+// ?For threading & multithreading
 # include "NSLsrcs/Mutex.hpp"
 
-// ?Enables secure multithreading and easy access to threads via their identifier
+// ?Allows secure multithreading and easy access to threads via their identifier ID
 # include "NSLsrcs/MultiThreading.hpp"
-
-// ?Some utilities
-# include "NSLsrcs/Memory.hpp"
 
 // ?Equivalent à std::string (en beaucoup + performant & avec + de fonctionnalités)
 // Todo: .Find()

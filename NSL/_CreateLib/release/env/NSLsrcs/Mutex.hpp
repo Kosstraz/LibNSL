@@ -16,7 +16,8 @@
 # include <pthread.h>
 # include <time.h>
 
-class Mutex final
+// Allows you to protect your data in differents threads when you read or write them.
+class Mutex
 {
 public:
 	typedef unsigned int		seconds_t;
@@ -35,8 +36,36 @@ public:
 	void	Lock()		noexcept;
 	void	Unlock()	noexcept;
 
+	class Strict;
+
 private:
-	pthread_mutex_t	mutex;
+		pthread_mutex_t		mutex;
+};
+
+// Like the Mutex class, but here you can choose between ReadOnly locking or/and WriteRead locking.
+class Mutex::Strict
+{
+public:
+	Strict()	noexcept;
+	~Strict()	noexcept;
+
+	void	Destroy();
+	int		TryRLock();
+	void	TimedRLock(seconds_t n)	noexcept;
+	void	TimedRLock(mseconds_t n)	noexcept;
+	void	TimedRLock(nseconds_t n)	noexcept;
+	void	RLock()		noexcept;
+
+	int		TryWRLock();
+	void	TimedWRLock(seconds_t n)	noexcept;
+	void	TimedWRLock(mseconds_t n)	noexcept;
+	void	TimedWRLock(nseconds_t n)	noexcept;
+	void	WRLock()		noexcept;
+
+	void	Unlock()	noexcept;
+
+private:
+	pthread_rwlock_t	mutex;
 };
 
 #endif
